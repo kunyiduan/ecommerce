@@ -1,7 +1,7 @@
 package com.kunyiduan.exception;
 
 import com.auth0.jwt.exceptions.JWTDecodeException;
-import com.galanz.iot.bean.ResponseDto;
+import com.kunyiduan.bean.ResponseDto;
 import com.netflix.client.ClientException;
 import feign.RetryableException;
 import lombok.extern.slf4j.Slf4j;

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <contextName>${HOSTNAME}</contextName>
+    <property name="LOG_PATH" value="phantom-log" />
+    <springProperty scope="context" name="appName" source="spring.application.name" />
+    <springProperty scope="context" name="ip" source="server.port" />
+    <springProperty scope="context" name="profile" source="spring.profiles.active"/>
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} ${HOSTNAME} ${ip} ${appName} ${profile} [%thread] %-5level %logger{36} - %msg%n"/>
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+    </appender>
+
+    <!--&lt;!&ndash;测试环境日志输出  &ndash;&gt;-->
+    <!--&lt;!&ndash;  DEBUG,INFO,WARN,ERROR  &ndash;&gt;-->
+    <springProfile name="dev,test,classprod,devAws,uatAws,classprodAws">
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+
+    <!--生产环境日志输出  输出日志级别 -->
+    <!--  DEBUG,INFO,WARN,ERROR   -->
+    <springProfile name="prodAws,prod">
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+        </root>
+    </springProfile>
+</configuration>
