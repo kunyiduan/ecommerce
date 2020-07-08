@@ -1,0 +1,9 @@
+server:
+  port: 40021
+spring:
+  profiles:
+    active: uat
+  application:
+    name: user
+  jackson:
+    time-zone: GMT+8
