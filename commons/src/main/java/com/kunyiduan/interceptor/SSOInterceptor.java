@@ -5,7 +5,6 @@ import com.kunyiduan.exception.LocalException;
 import com.kunyiduan.jwt.JWTUtils;
 import com.kunyiduan.utils.ConstantUtils;
 import com.kunyiduan.utils.RedisUtils;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
@@ -17,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Objects;
 
 @Component
-@Slf4j
 public class SSOInterceptor implements HandlerInterceptor {
 
     private static SSOInterceptor ssoInterceptor;
