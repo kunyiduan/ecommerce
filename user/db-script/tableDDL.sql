@@ -1,17 +1,20 @@
-CREATE TABLE `iot_user_oven` (
+CREATE TABLE `user` (
     `id` bigint NOT NULL PRIMARY KEY COMMENT 'ID',
     `telephone` CHAR(11) NOT NULL UNIQUE COMMENT '电话号码',
-    `fpassword` CHAR(32) DEFAULT NULL COMMENT '密码；第三方登录可能没有传密码',
-    `nickName` VARCHAR(32) NOT NULL COMMENT '昵称',
+    `email` CHAR(32) DEFAULT NULL COMMENT '密码',
+    `password` CHAR(32) DEFAULT NULL COMMENT '密码',
+    `nick_name` VARCHAR(32) NOT NULL COMMENT '昵称',
     `photo` varchar(255) default null comment '头像',
-    `fstatus` TINYINT(1) DEFAULT '1' COMMENT '状态；0-注销，1-正常',
-    `createTime` DATETIME NOT NULL COMMENT '创建时间'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='烤箱用户表';
+    `status` TINYINT(1) DEFAULT '1' COMMENT '状态；0-注销，1-正常',
+    `create_time` DATETIME NOT NULL COMMENT '创建时间',
+    `update_time` DATETIME NOT NULL COMMENT '更新时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户信息表';
 
-CREATE TABLE `iot_user_oven_authorization` (
-    `userId` bigint(20) NOT NULL COMMENT '用户ID',
-    `openid` char(64) NOT NULL COMMENT '第三方授权码',
+CREATE TABLE `user_authorization` (
+    `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+    `open_id` char(64) NOT NULL COMMENT '第三方授权码',
     `flag` tinyint(1) NOT NULL COMMENT '登录方式标识；1-微信，2-QQ，3-AppleId',
-    `createTime` datetime NOT NULL COMMENT '创建时间',
-    PRIMARY KEY (`flag`,`userId`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='烤箱用户第三方授权登录表';
+    `create_ime` datetime NOT NULL COMMENT '创建时间',
+    `update_time` DATETIME NOT NULL COMMENT '更新时间',
+    PRIMARY KEY (`flag`,`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='授权信息表';

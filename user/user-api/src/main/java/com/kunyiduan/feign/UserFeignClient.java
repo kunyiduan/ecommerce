@@ -16,7 +16,7 @@ public interface UserFeignClient {
      * @param token
      * @return
      */
-    @PostMapping("/getUserByToken")
-    ResponseDto getUserByToken(@NotBlank(message = "token不能为空") @RequestParam("token") String token);
+//    @PostMapping("/getUserByToken")
+//    ResponseDto getUserByToken(@NotBlank(message = "token不能为空") @RequestParam("token") String token);
 
 }
