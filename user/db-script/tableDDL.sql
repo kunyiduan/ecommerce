@@ -1,11 +1,12 @@
 CREATE TABLE `user` (
-    `id` bigint NOT NULL PRIMARY KEY COMMENT 'ID',
+    `id` BIGINT NOT NULL PRIMARY KEY COMMENT 'ID',
     `telephone` CHAR(11) NOT NULL UNIQUE COMMENT '电话号码',
-    `email` CHAR(32) DEFAULT NULL COMMENT '密码',
+    `email` CHAR(32) DEFAULT NULL COMMENT '邮箱',
     `password` CHAR(32) DEFAULT NULL COMMENT '密码',
-    `nick_name` VARCHAR(32) NOT NULL COMMENT '昵称',
-    `photo` varchar(255) default null comment '头像',
-    `status` TINYINT(1) DEFAULT '1' COMMENT '状态；0-注销，1-正常',
+    `nick_name` VARCHAR(32) DEFAULT NULL COMMENT '昵称',
+    `photo` VARCHAR(255) DEFAULT NULL COMMENT '头像',
+    `birthday` DATE DEFAULT NULL COMMENT '生日',
+    `status` TINYINT(1) UNSIGNED ZEROFILL DEFAULT '1' COMMENT '状态；0-注销，1-正常',
     `create_time` DATETIME NOT NULL COMMENT '创建时间',
     `update_time` DATETIME NOT NULL COMMENT '更新时间'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户信息表';

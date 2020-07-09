@@ -2,6 +2,7 @@ package com.kunyiduan.entity;
 
 import java.time.LocalDateTime;
 import java.io.Serializable;
+import java.util.Date;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -36,7 +37,7 @@ public class User implements Serializable {
     private String telephone;
 
     /**
-     * 密码
+     * 邮箱
      */
     private String email;
 
@@ -56,19 +57,24 @@ public class User implements Serializable {
     private String photo;
 
     /**
+     * 生日
+     */
+    private Date birthday;
+
+    /**
      * 状态；0-注销，1-正常
      */
-    private Boolean status;
+    private Integer status;
 
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 创建时间
      */
-    private LocalDateTime updateTime;
+    private Date updateTime;
 
 
 }

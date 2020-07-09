@@ -1,5 +1,6 @@
 package com.kunyiduan.service;
 
+import com.kunyiduan.bean.user.RegisterVO;
 import com.kunyiduan.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -11,6 +12,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @author achilles
  * @since 2020-07-08
  */
-public interface IUserService extends IService<User> {
+public interface UserService extends IService<User> {
+
+    void register(RegisterVO registerVO);
 
 }
