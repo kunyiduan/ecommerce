@@ -1,23 +1,17 @@
 package com.kunyiduan.feign;
 
+import com.kunyiduan.bean.RegisterVO;
+import com.kunyiduan.bean.ResponseDto;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import javax.validation.constraints.NotBlank;
 
 @FeignClient(name = "USER", path = "/user")
 @RestController
 public interface UserFeignClient {
 
-    /**
-     * 通过token获取用户信息
-     * @param token
-     * @return
-     */
 //    @PostMapping("/getUserByToken")
 //    ResponseDto getUserByToken(@NotBlank(message = "token不能为空") @RequestParam("token") String token);
 

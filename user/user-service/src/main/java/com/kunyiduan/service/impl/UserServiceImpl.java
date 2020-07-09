@@ -7,6 +7,7 @@ import com.kunyiduan.mapper.UserMapper;
 import com.kunyiduan.service.UserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
 
@@ -22,6 +23,7 @@ import java.sql.Timestamp;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void register(RegisterVO registerVO) {
         User user = new User();
         BeanUtils.copyProperties(registerVO,user);

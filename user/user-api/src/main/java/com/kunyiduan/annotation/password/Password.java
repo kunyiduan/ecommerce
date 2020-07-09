@@ -1,13 +1,10 @@
 package com.kunyiduan.annotation.password;
 
-import com.kunyiduan.annotation.phone.Phone;
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
 import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.ElementType.PARAMETER;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @Documented

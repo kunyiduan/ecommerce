@@ -108,6 +108,7 @@ public class MybatisPlusUtils {
 //        strategy.setSuperControllerClass("com.baomidou.mybatisplus.samples.generator.common.BaseController");
         strategy.setInclude(scanner("表名"));
 //        strategy.setSuperEntityColumns("id");
+        //设置controller为@RestController
         strategy.setRestControllerStyle(true);
         strategy.setControllerMappingHyphenStyle(true);
 //        strategy.setTablePrefix(pc.getModuleName() + "_");

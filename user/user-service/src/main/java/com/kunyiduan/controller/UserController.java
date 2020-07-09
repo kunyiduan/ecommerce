@@ -1,5 +1,6 @@
 package com.kunyiduan.controller;
 
+import com.kunyiduan.bean.ResponseDto;
 import com.kunyiduan.bean.user.RegisterVO;
 import com.kunyiduan.service.UserService;
 import io.swagger.annotations.Api;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -20,7 +22,7 @@ import org.springframework.stereotype.Controller;
  * @author achilles
  * @since 2020-07-08
  */
-@Controller
+@RestController
 @RequestMapping("/user")
 @Api(description = "用户",tags = {"user"})
 public class UserController {
