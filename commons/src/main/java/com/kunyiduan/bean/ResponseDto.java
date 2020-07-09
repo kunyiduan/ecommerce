@@ -5,11 +5,6 @@ import lombok.Data;
 
 import javax.validation.Valid;
 
-/**
- * 响应dto
- * @author daoqidelv
- * @createdate 2017年10月15日
- */
 @Data
 public class ResponseDto<T> {
 

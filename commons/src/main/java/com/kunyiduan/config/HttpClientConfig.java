@@ -18,13 +18,6 @@ import org.springframework.web.client.RestTemplate;
 import java.nio.charset.Charset;
 import java.util.List;
 
-/**
- * @author 邓海焦
- * @Title: ${file_name}
- * @Package ${package_name}
- * @Description: ${todo}
- * @date 2020/3/2611:14
- */
 @PropertySource(value = {"classpath:httpclient.properties"})
 @Configuration
 @ConfigurationProperties(prefix = "http", ignoreUnknownFields = true)
