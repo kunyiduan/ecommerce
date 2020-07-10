@@ -1,3 +1,11 @@
+spring:
+  security:
+    basic:
+      path: /swagger-ui.html
+      enabled: true
+    user:
+      name: kunyiduan
+      password: 123456
 token:
   expired: 15*24*60*60*1000
   secret: l%x^fZA%#1a~7hYDGTjB8)L78v~hTPI$

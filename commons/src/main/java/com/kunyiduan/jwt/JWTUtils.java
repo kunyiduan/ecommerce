@@ -24,10 +24,10 @@ import java.util.Objects;
 public class JWTUtils {
 
     @Value(value = "${token.expired}")
-    private long expired;
+    private static long expired;
 
     @Value(value = "${token.secret}")
-    private String secret;
+    private static String secret;
 
     //解决redisUtils无法注入
     private JWTUtils jwtUtils;

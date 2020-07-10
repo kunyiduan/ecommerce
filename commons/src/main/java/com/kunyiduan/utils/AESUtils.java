@@ -1,17 +1,18 @@
 package com.kunyiduan.utils;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.stereotype.Component;
 
 @Component
 public class AESUtils {
 
-    @Value("${encrption.aes.secret}")
-    private String secret;
+    @Value("${encryption.aes.secret}")
+    private static String secret;
 
-    @Value("${encrption.aes.slat}")
-    private String slat;
+    @Value("${encryption.aes.slat}")
+    private static String slat;
 
     /**
      * 加密
