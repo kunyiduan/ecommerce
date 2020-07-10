@@ -5,11 +5,15 @@ import com.kunyiduan.bean.user.RegisterVO;
 import com.kunyiduan.entity.User;
 import com.kunyiduan.mapper.UserMapper;
 import com.kunyiduan.service.UserService;
+import com.kunyiduan.utils.EncryptUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  * <p>
@@ -22,14 +26,20 @@ import java.sql.Timestamp;
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
+    @Autowired
+    private EncryptUtils encryptUtils;
+
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public void register(RegisterVO registerVO) {
+    public Boolean register(RegisterVO registerVO) {
         User user = new User();
         BeanUtils.copyProperties(registerVO,user);
-        Timestamp date = new Timestamp(System.currentTimeMillis());
+        user.setPassword(encryptUtils.encryptSha1(registerVO.getPassword()));
+        Date date = new Date();
         user.setCreateTime(date);
         user.setUpdateTime(date);
-        baseMapper.insert(user);
+        int count = baseMapper.insert(user);
+        return count == 1 ? true : false;
     }
+
 }

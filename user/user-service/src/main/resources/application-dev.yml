@@ -10,7 +10,7 @@ spring:
     database: 1
 logging:
   level:
-    root: info
+    root: debug
 eureka:
   client:
     serviceUrl:

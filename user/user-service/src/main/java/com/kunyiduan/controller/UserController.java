@@ -30,6 +30,11 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    /**
+     * 密码使用对称加密算法AES
+     * @param registerVO
+     * @return
+     */
     @ApiOperation("注册")
     @PostMapping("/register")
     public ResponseDto register(@RequestBody @Validated RegisterVO registerVO){

@@ -14,6 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UserService extends IService<User> {
 
-    void register(RegisterVO registerVO);
+    Boolean register(RegisterVO registerVO);
 
 }

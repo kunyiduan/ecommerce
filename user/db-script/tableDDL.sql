@@ -2,7 +2,7 @@ CREATE TABLE `user` (
     `id` BIGINT NOT NULL PRIMARY KEY COMMENT 'ID',
     `telephone` CHAR(11) NOT NULL UNIQUE COMMENT '电话号码',
     `email` CHAR(32) DEFAULT NULL COMMENT '邮箱',
-    `password` CHAR(32) DEFAULT NULL COMMENT '密码',
+    `password` CHAR(40) DEFAULT NULL COMMENT '密码',
     `nick_name` VARCHAR(32) DEFAULT NULL COMMENT '昵称',
     `photo` VARCHAR(255) DEFAULT NULL COMMENT '头像',
     `birthday` DATE DEFAULT NULL COMMENT '生日',

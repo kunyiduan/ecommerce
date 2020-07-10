@@ -5,10 +5,12 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 
-@MapperScan("com.kunyiduan.mapper")
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = "com.kunyiduan")
+@MapperScan("com.kunyiduan.mapper")
 @SpringBootApplication
 public class UserApplication {
 
