@@ -26,7 +26,7 @@ import javax.validation.UnexpectedTypeException;
  */
 @Slf4j
 @RestControllerAdvice
-public class LocallExceptionHandler {
+public class GlobalExceptionHandler {
 
     @Autowired
     private MessageSource messageSource;
@@ -79,14 +79,14 @@ public class LocallExceptionHandler {
     /**
      * 处理自定义异常
      */
-    @ExceptionHandler(value = LocalException.class)
-    public ResponseDto LocalException(LocalException e) {
+    @ExceptionHandler(value = GlobalException.class)
+    public ResponseDto GlobalException(GlobalException e) {
         log.error(e.getMessage(), e);
         return new ResponseDto().error(e.getCode(), e.getMessage());
     }
 
     @ExceptionHandler(value = RetryableException.class)
-    public ResponseDto LocalException(RetryableException e) {
+    public ResponseDto RetryableException(RetryableException e) {
         log.error(e.getMessage(), e);
         return new ResponseDto().error(577, e.getMessage());
     }

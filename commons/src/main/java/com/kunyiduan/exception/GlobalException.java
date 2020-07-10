@@ -6,7 +6,7 @@ package com.kunyiduan.exception;
  * @author achilles
  * @version 1.0
  */
-public class LocalException extends RuntimeException {
+public class GlobalException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
@@ -15,27 +15,27 @@ public class LocalException extends RuntimeException {
     private Object data;
     private ExceptionCode exceptionCode;
 
-    public LocalException() {
+    public GlobalException() {
         super();
     }
 
-    public LocalException(String msg) {
+    public GlobalException(String msg) {
         super(msg);
         this.msg = msg;
     }
 
-    public LocalException(String msg, Throwable e) {
+    public GlobalException(String msg, Throwable e) {
         super(msg, e);
         this.msg = msg;
     }
 
-    public LocalException(int code, String msg) {
+    public GlobalException(int code, String msg) {
         super(msg);
         this.msg = msg;
         this.code = code;
     }
 
-    public LocalException(int code, String msg, Object data) {
+    public GlobalException(int code, String msg, Object data) {
         super(msg);
         this.msg = msg;
         this.code = code;
@@ -43,19 +43,19 @@ public class LocalException extends RuntimeException {
 
     }
 
-    public LocalException(ExceptionCode exceptionCode) {
+    public GlobalException(ExceptionCode exceptionCode) {
         super(exceptionCode.getMessage());
         this.msg = exceptionCode.getMessage();
         this.code = exceptionCode.getCode();
     }
 
-    public LocalException(ExceptionCode exceptionCode, Throwable e) {
+    public GlobalException(ExceptionCode exceptionCode, Throwable e) {
         super(exceptionCode.getMessage(), e);
         this.msg = exceptionCode.getMessage();
         this.code = exceptionCode.getCode();
     }
 
-    public LocalException(String msg, int code, Throwable e) {
+    public GlobalException(String msg, int code, Throwable e) {
         super(msg, e);
         this.msg = msg;
         this.code = code;

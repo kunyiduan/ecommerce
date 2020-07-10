@@ -1,7 +1,7 @@
 package com.kunyiduan.interceptor;
 
 import com.kunyiduan.exception.ExceptionCode;
-import com.kunyiduan.exception.LocalException;
+import com.kunyiduan.exception.GlobalException;
 import com.kunyiduan.jwt.JWTUtils;
 import com.kunyiduan.utils.ConstantUtils;
 import com.kunyiduan.utils.RedisUtils;
@@ -18,7 +18,7 @@ import java.util.Objects;
 @Component
 public class SSOInterceptor implements HandlerInterceptor {
 
-    private static SSOInterceptor ssoInterceptor;
+    private SSOInterceptor ssoInterceptor;
 
     @Autowired
     private RedisUtils redisUtils;
@@ -42,7 +42,7 @@ public class SSOInterceptor implements HandlerInterceptor {
             String telephone = jwtUtils.getTelephone(token);
             String savaVersion = ssoInterceptor.redisUtils.get(ConstantUtils.TOKEN_VERSION.concat(telephone)).toString();
             if(!version.equals(savaVersion)){
-                throw new LocalException(ExceptionCode.USER_LOGIN_ERROR);
+                throw new GlobalException(ExceptionCode.USER_LOGIN_ERROR);
             }
             return true;
         }

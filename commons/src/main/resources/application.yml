@@ -1,3 +1,8 @@
-#token失效时间
-jwt:
+token:
   expired: 15*24*60*60*1000
+  secret: l%x^fZA%#1a~7hYDGTjB8)L78v~hTPI$
+encryption:
+  aes:
+    secret: NyBGPAI)E*BDHw+BLSDA9PuekPiGFSU&
+    slat: b6db1d1ec27811ea
+  slat: oEjV0Y&aihJ~kkj&EQ~GPRT42^~BvYcx
