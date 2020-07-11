@@ -16,11 +16,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and()
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/").permitAll()
-                .antMatchers("/user/**").hasRole("USER")
+                //普通的接口不需要校验
+                .antMatchers("/user/**").permitAll()
+                // swagger页面需要添加登录校验
+                .antMatchers("/swagger-ui.html").authenticated()
                 .and()
-                .formLogin().loginPage("/login").defaultSuccessUrl("/hello")
-                .and()
-                .logout().logoutUrl("/logout").logoutSuccessUrl("/login");
+                .formLogin();
     }
 }

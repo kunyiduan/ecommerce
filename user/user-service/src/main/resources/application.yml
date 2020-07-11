@@ -1,8 +1,6 @@
 server:
   #端口号
   port: 8060
-  servlet:
-      context-path: /user
 
 spring:
   profiles:

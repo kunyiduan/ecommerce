@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2020-07-08
  */
 @RestController
+@RequestMapping("/user")
 @Api(description = "用户",tags = {"user"})
 public class UserController {
 
