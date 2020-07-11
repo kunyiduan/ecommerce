@@ -16,7 +16,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
+import javax.crypto.BadPaddingException;
 import javax.validation.UnexpectedTypeException;
+
+import static com.kunyiduan.exception.ExceptionCode.ENCRYPTION_ERROR;
 
 /**
  * 异常处理器
@@ -32,6 +35,17 @@ public class GlobalExceptionHandler {
     private MessageSource messageSource;
 
     /**
+     * 没有明细异常时，500+
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(Exception.class)
+    public ResponseDto handleException(Exception e) {
+        log.error(e.getMessage(), e);
+        return new ResponseDto().error();
+    }
+
+    /**
      * 数据库主键冲突
      * @param e
      * @return
@@ -42,10 +56,15 @@ public class GlobalExceptionHandler {
         return new ResponseDto().error(ExceptionCode.DB_DUPLICATEKEY.getCode(),ExceptionCode.DB_DUPLICATEKEY.getMessage());
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseDto handleException(Exception e) {
+    /**
+     * 捕获Aes加密时，如果获取到的加密字符串错误时，无法解密的异常
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(BadPaddingException.class)
+    public ResponseDto handleBadPaddingException(BadPaddingException e) {
         log.error(e.getMessage(), e);
-        return new ResponseDto().error();
+        return new ResponseDto().error(ENCRYPTION_ERROR.getCode(),ENCRYPTION_ERROR.getMessage());
     }
 
     @ExceptionHandler(MissingServletRequestParameterException.class)

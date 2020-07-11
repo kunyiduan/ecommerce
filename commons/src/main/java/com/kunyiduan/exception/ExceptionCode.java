@@ -24,6 +24,8 @@ public enum ExceptionCode {
 
     WECHAT_OPENID_NULL(178,"无法获取微信openid"),
 
+    ENCRYPTION_ERROR(469,"加密异常"),
+
     DB_DUPLICATEKEY(341,"主键冲突");
 
     /**
