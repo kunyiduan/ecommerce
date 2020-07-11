@@ -1,18 +1,19 @@
 package com.kunyiduan.utils;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.security.crypto.encrypt.Encryptors;
 import org.springframework.stereotype.Component;
 
 @Component
-public class AESUtils {
+@Slf4j
+public class AesUtils {
 
     @Value("${encryption.aes.secret}")
-    private static String secret;
+    private String secret;
 
     @Value("${encryption.aes.slat}")
-    private static String slat;
+    private String slat;
 
     /**
      * 加密
@@ -28,8 +29,13 @@ public class AESUtils {
      * @param str
      * @return
      */
-    private String decrypt(String str) {
+    public String decrypt(String str) {
         return Encryptors.text(secret, slat).decrypt(str);
+    }
+
+    public static void main(String[] args) {
+        String reuslt = Encryptors.text("NyBGPAI)E*BDHw+BLSDA9PuekPiGFSU&", "b6db1d1ec27811ea").encrypt("achilles");
+        System.out.println(reuslt);
     }
 
 }

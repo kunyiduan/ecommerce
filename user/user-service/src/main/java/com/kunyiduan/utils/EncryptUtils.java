@@ -3,14 +3,13 @@ package com.kunyiduan.utils;
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 @Component
 public class EncryptUtils {
 
     @Value("${encryption.slat}")
-    private static String slat;
+    private String slat;
 
     public String encryptBase64(String str){
         return Base64.encodeBase64String(str.concat(slat).getBytes());

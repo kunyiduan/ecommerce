@@ -4,9 +4,6 @@ import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
 
-import static java.lang.annotation.ElementType.*;
-import static java.lang.annotation.RetentionPolicy.RUNTIME;
-
 @Documented
 //声明该注解只允许用在类的字段上
 @Target({ ElementType.FIELD})
@@ -23,10 +20,10 @@ public @interface Phone {
 
     Class<? extends Payload>[] payload() default { };
 
-    @Target({ METHOD, FIELD, ANNOTATION_TYPE, CONSTRUCTOR, PARAMETER })
-    @Retention(RUNTIME)
+    @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE})
+    @Retention(RetentionPolicy.RUNTIME)
     @Documented
-    @interface List {
+    public @interface List {
         Phone[] value();
     }
 

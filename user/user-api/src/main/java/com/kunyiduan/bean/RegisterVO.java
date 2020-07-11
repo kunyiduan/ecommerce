@@ -1,11 +1,11 @@
 package com.kunyiduan.bean;
 
-import com.kunyiduan.annotation.password.Password;
 import com.kunyiduan.annotation.phone.Phone;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import java.util.Date;
@@ -20,7 +20,7 @@ public class RegisterVO {
     private String telephone;
 
     @ApiModelProperty(required = true, position = 2, value = "密码")
-    @Password
+    @Length(min = 64, max = 64)
     private String password;
 
     @ApiModelProperty(required = false, position = 3, value = "邮箱")

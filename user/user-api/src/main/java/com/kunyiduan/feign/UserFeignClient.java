@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-@FeignClient(name = "USER", path = "/user")
+@FeignClient(name = "USER")
 @RestController
 public interface UserFeignClient {
 
