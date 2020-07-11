@@ -21,16 +21,24 @@ import java.util.Map;
 import java.util.Objects;
 
 @Component
-public class JWTUtils {
+public class JwtUtils {
 
-    @Value(value = "${token.expired}")
     private static long expired;
 
-    @Value(value = "${token.secret}")
     private static String secret;
 
+    @Value(value = "${token.expired}")
+    public void setExpired(long expired) {
+        expired = expired;
+    }
+
+    @Value(value = "${token.secret}")
+    public void setSecret(String secret) {
+        secret = secret;
+    }
+
     //解决redisUtils无法注入
-    private JWTUtils jwtUtils;
+    private JwtUtils jwtUtils;
 
     @Autowired
     private RedisUtils redisUtils;
@@ -38,7 +46,7 @@ public class JWTUtils {
     @PostConstruct
     public void init(){
         if (Objects.isNull(jwtUtils)) {
-            jwtUtils = new JWTUtils();
+            jwtUtils = new JwtUtils();
         }
         jwtUtils.redisUtils = this.redisUtils;
     }
