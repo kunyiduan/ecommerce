@@ -23,19 +23,11 @@ import java.util.Objects;
 @Component
 public class JwtUtils {
 
-    private static long expired;
-
-    private static String secret;
-
     @Value(value = "${token.expired}")
-    public void setExpired(long expired) {
-        expired = expired;
-    }
+    private long expired;
 
     @Value(value = "${token.secret}")
-    public void setSecret(String secret) {
-        secret = secret;
-    }
+    private String secret;
 
     //解决redisUtils无法注入
     private JwtUtils jwtUtils;

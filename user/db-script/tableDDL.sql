@@ -4,7 +4,7 @@ CREATE TABLE `user` (
     `email` CHAR(32) DEFAULT NULL COMMENT '邮箱',
     `password` CHAR(40) DEFAULT NULL COMMENT '密码',
     `nick_name` VARCHAR(32) DEFAULT NULL COMMENT '昵称',
-    `photo` VARCHAR(255) DEFAULT NULL COMMENT '头像',
+    `photo` VARCHAR(255) DEFAULT NULL COMMENT '头像地址',
     `birthday` DATE DEFAULT NULL COMMENT '生日',
     `status` TINYINT(1) UNSIGNED ZEROFILL DEFAULT '1' COMMENT '状态；0-注销，1-正常',
     `create_time` DATETIME NOT NULL COMMENT '创建时间',

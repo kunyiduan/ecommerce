@@ -52,7 +52,7 @@ public class User implements Serializable {
     private String nickName;
 
     /**
-     * 头像
+     * 头像地址
      */
     private String photo;
 

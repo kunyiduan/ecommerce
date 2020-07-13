@@ -5,15 +5,17 @@ import com.kunyiduan.annotation.phone.Phone;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Email;
 import java.util.Date;
 
+@ApiModel("注册VO")
 @Getter
 @Setter
-@ApiModel("注册VO")
+@NoArgsConstructor
 public class RegisterVO {
 
     @ApiModelProperty(required = true, position = 1, value = "电话号码")
@@ -21,7 +23,7 @@ public class RegisterVO {
     private String telephone;
 
     @ApiModelProperty(required = true, position = 2, value = "密码")
-    @Length(min = 64, max = 64,message = "密码长度为64")
+    @Length(min = 64, max = 64,message = "密码输入错误")
     private String password;
 
     @ApiModelProperty(required = false, position = 3, value = "邮箱")
