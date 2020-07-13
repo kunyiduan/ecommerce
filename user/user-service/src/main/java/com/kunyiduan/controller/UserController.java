@@ -2,7 +2,10 @@ package com.kunyiduan.controller;
 
 import com.kunyiduan.bean.ResponseDto;
 import com.kunyiduan.bean.user.LoginPhoneVO;
+import com.kunyiduan.bean.user.PasswordVO;
 import com.kunyiduan.bean.user.RegisterVO;
+import com.kunyiduan.bean.user.UserInfoVO;
+import com.kunyiduan.jwt.JwtUtils;
 import com.kunyiduan.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -27,6 +30,9 @@ public class UserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private JwtUtils jwtUtils;
 
     /**
      * 密码使用AES加密
@@ -54,8 +60,25 @@ public class UserController {
 
     @ApiOperation("通过token获取用户信息")
     @GetMapping("/token")
-    public ResponseDto getUserInfoByToken(@RequestHeader("token") String token){
+    public ResponseDto<UserInfoVO> getUserInfoByToken(@RequestHeader("token") String token){
+        UserInfoVO userInfo = userService.getUserInfoByToken(token);
+        return new ResponseDto<>(userInfo);
+    }
 
+    @ApiOperation("修改密码")
+    @PostMapping("/password")
+    public ResponseDto modifyPassword(@RequestHeader("token") String token, @RequestBody @Validated PasswordVO passwordVO){
+        String telephone = jwtUtils.getTelephone(token);
+        userService.modifyPassword(telephone,passwordVO.getCurrentPassword(),passwordVO.getNewPassword());
+        return new ResponseDto().success();
+    }
+
+
+    @ApiOperation("退出登录")
+    @DeleteMapping("/logout")
+    public ResponseDto logout(@RequestHeader("token") String token) {
+        userService.logout(token);
+        return new ResponseDto().success();
     }
 
 }

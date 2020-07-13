@@ -23,7 +23,7 @@ public class LoginPhoneVO {
     private String telephone;
 
     @ApiModelProperty(required = true,position = 2,value = "密码")
-    @Length(min = 64,max = 64,message = "密码输入错误")
+    @Length(min = 64,max = 64,message = "密码加密错误")
     private String password;
 
 }
