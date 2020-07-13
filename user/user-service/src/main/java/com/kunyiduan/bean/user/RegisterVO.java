@@ -1,6 +1,5 @@
 package com.kunyiduan.bean.user;
 
-import com.kunyiduan.annotation.password.Password;
 import com.kunyiduan.annotation.phone.Phone;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;

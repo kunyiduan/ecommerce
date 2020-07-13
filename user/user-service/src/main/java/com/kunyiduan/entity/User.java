@@ -28,7 +28,7 @@ public class User implements Serializable {
     /**
      * ID 使用雪花算法
      */
-    @TableId(type = IdType.ID_WORKER)
+    @TableId(value = "id", type = IdType.ID_WORKER)
     private Long id;
 
     /**

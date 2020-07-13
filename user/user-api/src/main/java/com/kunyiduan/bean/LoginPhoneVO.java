@@ -1,4 +1,4 @@
-package com.kunyiduan.bean.user;
+package com.kunyiduan.bean;
 
 import com.kunyiduan.annotation.phone.Phone;
 import io.swagger.annotations.ApiModel;
