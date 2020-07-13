@@ -22,7 +22,7 @@ import java.util.Scanner;
 /**
  * Created by duankunyi on 2020/7/8.
  */
-public class MybatisPlusUtils {
+public class MybatisPlusUtil {
 
     /**
      * 设置服务相关的全局变量

@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class AesUtils {
+public class AesUtil {
 
     @Value("${encryption.aes.secret}")
     private String secret;

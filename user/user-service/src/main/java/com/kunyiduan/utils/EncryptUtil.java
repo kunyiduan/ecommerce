@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class EncryptUtils {
+public class EncryptUtil {
 
     @Value("${encryption.slat}")
     private String slat;

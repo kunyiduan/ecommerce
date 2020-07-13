@@ -3,12 +3,13 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost/user?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
-    password: '123456'
+    password: 123456
   redis:
     host: localhost
     port: 6379
     database: 1
     timeout: 2000
+    password: 123456
   security:
     basic:
       enabled: true
@@ -32,6 +33,11 @@ eureka:
       defaultZone: http://root:123456@localhost:8761/eureka/
   instance:
     preferIpAddress: true
+
+mybatis-plus:
+  configuration:
+    # 打印执行的sql，开发或测试环境使用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 encryption:
   aes:

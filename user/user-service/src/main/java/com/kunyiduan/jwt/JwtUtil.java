@@ -6,10 +6,10 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 import com.auth0.jwt.interfaces.Claim;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.kunyiduan.exception.ExceptionCode;
-import com.kunyiduan.exception.GlobalException;
-import com.kunyiduan.utils.ConstantUtils;
-import com.kunyiduan.utils.RedisUtils;
+import com.kunyiduan.enums.ResultCode;
+import com.kunyiduan.exception.BusinessException;
+import com.kunyiduan.utils.ConstantUtil;
+import com.kunyiduan.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -21,7 +21,7 @@ import java.util.Map;
 import java.util.Objects;
 
 @Component
-public class JwtUtils {
+public class JwtUtil {
 
     @Value(value = "${token.expired}")
     private long expired;
@@ -30,17 +30,17 @@ public class JwtUtils {
     private String secret;
 
     //解决redisUtils无法注入
-    private JwtUtils jwtUtils;
+    private JwtUtil jwtUtil;
 
     @Autowired
-    private RedisUtils redisUtils;
+    private RedisUtil redisUtil;
 
     @PostConstruct
     public void init(){
-        if (Objects.isNull(jwtUtils)) {
-            jwtUtils = new JwtUtils();
+        if (Objects.isNull(jwtUtil)) {
+            jwtUtil = new JwtUtil();
         }
-        jwtUtils.redisUtils = this.redisUtils;
+        jwtUtil.redisUtil = this.redisUtil;
     }
 
     /**
@@ -51,7 +51,7 @@ public class JwtUtils {
      */
     public String sign(String id,String telephone) {
         long version = System.currentTimeMillis();
-        jwtUtils.redisUtils.set(ConstantUtils.TOKEN_VERSION.concat(telephone),String.valueOf(version));
+        jwtUtil.redisUtil.set(ConstantUtil.TOKEN_VERSION.concat(telephone),String.valueOf(version));
         Date date = new Date(version+expired);
         Map<String,Object> header = new HashMap<>(2);
         header.put("alg","HS256");
@@ -91,7 +91,7 @@ public class JwtUtils {
             String id = claimMap.get("id").asString();
             return id;
         } catch (TokenExpiredException e){
-            throw new GlobalException(ExceptionCode.TOKEN_EXPIRED);
+            throw new BusinessException(ResultCode.TOKEN_EXPIRED);
         }
     }
 
@@ -108,7 +108,7 @@ public class JwtUtils {
             String telephone = claimMap.get("telephone").asString();
             return telephone;
         } catch (TokenExpiredException e){
-            throw new GlobalException(ExceptionCode.TOKEN_EXPIRED);
+            throw new BusinessException(ResultCode.TOKEN_EXPIRED);
         }
     }
 
@@ -125,7 +125,7 @@ public class JwtUtils {
             String version = claimMap.get("version").asString();
             return version;
         } catch (TokenExpiredException e){
-            throw new GlobalException(ExceptionCode.TOKEN_EXPIRED);
+            throw new BusinessException(ResultCode.TOKEN_EXPIRED);
         }
     }
 
