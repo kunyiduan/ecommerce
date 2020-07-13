@@ -1,0 +1,27 @@
+server:
+  #端口号
+  port: 8062
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: product
+  jackson:
+    time-zone: GMT+8
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  type-aliases-package: com.kunyiduan.entity
+  default-executor-type: REUSE
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+  global-config:
+    db-config:
+      table-underline: true
+      id-type: ID_WORKER_STR
+      db-type: mysql
+  instance:
+    preferIpAddress: true
