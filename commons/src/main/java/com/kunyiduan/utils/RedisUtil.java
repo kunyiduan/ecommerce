@@ -16,12 +16,12 @@ import java.util.concurrent.TimeUnit;
  * @author achilles
  */
 @Component
-public class RedisUtils {
+public class RedisUtil {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
 
-    public RedisUtils(RedisTemplate<String, Object> redisTemplate) {
+    public RedisUtil(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
     }
 

@@ -1,41 +1,43 @@
 package com.kunyiduan.exception;
 
+import com.kunyiduan.enums.ResultCode;
+
 /**
  * 自定义异常
  *
  * @author achilles
  * @version 1.0
  */
-public class GlobalException extends RuntimeException {
+public class BusinessException extends RuntimeException {
 
     private static final long serialVersionUID = 1L;
 
     private String msg;
     private int code = 500;
     private Object data;
-    private ExceptionCode exceptionCode;
+    private ResultCode resultCode;
 
-    public GlobalException() {
+    public BusinessException() {
         super();
     }
 
-    public GlobalException(String msg) {
+    public BusinessException(String msg) {
         super(msg);
         this.msg = msg;
     }
 
-    public GlobalException(String msg, Throwable e) {
+    public BusinessException(String msg, Throwable e) {
         super(msg, e);
         this.msg = msg;
     }
 
-    public GlobalException(int code, String msg) {
+    public BusinessException(int code, String msg) {
         super(msg);
         this.msg = msg;
         this.code = code;
     }
 
-    public GlobalException(int code, String msg, Object data) {
+    public BusinessException(int code, String msg, Object data) {
         super(msg);
         this.msg = msg;
         this.code = code;
@@ -43,19 +45,19 @@ public class GlobalException extends RuntimeException {
 
     }
 
-    public GlobalException(ExceptionCode exceptionCode) {
-        super(exceptionCode.getMessage());
-        this.msg = exceptionCode.getMessage();
-        this.code = exceptionCode.getCode();
+    public BusinessException(ResultCode resultCode) {
+        super(resultCode.getMessage());
+        this.msg = resultCode.getMessage();
+        this.code = resultCode.getCode();
     }
 
-    public GlobalException(ExceptionCode exceptionCode, Throwable e) {
-        super(exceptionCode.getMessage(), e);
-        this.msg = exceptionCode.getMessage();
-        this.code = exceptionCode.getCode();
+    public BusinessException(ResultCode resultCode, Throwable e) {
+        super(resultCode.getMessage(), e);
+        this.msg = resultCode.getMessage();
+        this.code = resultCode.getCode();
     }
 
-    public GlobalException(String msg, int code, Throwable e) {
+    public BusinessException(String msg, int code, Throwable e) {
         super(msg, e);
         this.msg = msg;
         this.code = code;
