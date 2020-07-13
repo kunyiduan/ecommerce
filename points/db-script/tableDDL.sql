@@ -1,0 +1,7 @@
+CREATE TABLE `points` (
+    `id` BIGINT NOT NULL PRIMARY KEY COMMENT 'ID',
+    `user_id` BIGINT NOT NULL COMMENT '用户ID',
+    `points` INT UNSIGNED NOT NULL COMMENT '积分',
+    `create_time` DATETIME NOT NULL COMMENT '创建时间',
+    `update_time` DATETIME NOT NULL COMMENT '更新时间'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户信息表';
