@@ -29,8 +29,8 @@ public class JwtUtil {
     @Value(value = "${token.secret}")
     private String secret;
 
-    //解决redisUtils无法注入
-    private JwtUtil jwtUtil;
+    //解决redisUtil无法注入导致的空指针异常
+    private static JwtUtil jwtUtil;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -127,6 +127,15 @@ public class JwtUtil {
         } catch (TokenExpiredException e){
             throw new BusinessException(ResultCode.TOKEN_EXPIRED);
         }
+    }
+
+    public static void main(String[] args) {
+        String token = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZWxlcGhvbmUiOiIxNTkyNTEwODU3NSIsImlkIjoiMTI4MTg2NzY5ODUxNTA3OTE3MCIsImV4cCI6MTU5NjAzNTgxMSwidmVyc2lvbiI6IjE1OTQ3Mzk4MTE5ODkifQ.O1VKLajtk9w3jrECYRxBaHdcKWgT7CpJOyN1qr82A4E";
+        JWTVerifier verifier = JWT.require(Algorithm.HMAC256("Uk8eVNmrOmJjt8IIRz5Y4xOlYspP4Lp1")).build();
+        DecodedJWT jwt = verifier.verify(token);
+        Map<String, Claim> claimMap = jwt.getClaims();
+        String version = claimMap.get("version").asString();
+        System.out.println(version);
     }
 
 }

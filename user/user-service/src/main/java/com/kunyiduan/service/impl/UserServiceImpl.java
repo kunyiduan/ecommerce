@@ -119,6 +119,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void logout(String token) {
         String telephone = jwtUtil.getTelephone(token);
         redisUtil.del(ConstantUtil.USER_TELEPHONE.concat(telephone));
+        //退出登录之后，签发的token失效
+        redisUtil.del(ConstantUtil.TOKEN_VERSION.concat(telephone));
     }
 
     @Override

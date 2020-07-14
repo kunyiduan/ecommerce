@@ -20,7 +20,8 @@ import java.util.Objects;
 @Slf4j
 public class SsoInterceptor implements HandlerInterceptor {
 
-    private SsoInterceptor ssoInterceptor;
+    //必须声明为statis，类级别对象，防止空指针异常
+    private static SsoInterceptor ssoInterceptor;
 
     @Autowired
     private RedisUtil redisUtil;
@@ -34,21 +35,23 @@ public class SsoInterceptor implements HandlerInterceptor {
             ssoInterceptor = new SsoInterceptor();
         }
         ssoInterceptor.redisUtil = this.redisUtil;
+        ssoInterceptor.jwtUtil = this.jwtUtil;
     }
 
     @Override
     public boolean preHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o) throws Exception {
         String token = httpServletRequest.getHeader("token");
         if (!StringUtils.isEmpty(token)) {
-            String currentVersion = jwtUtil.getVersion(token);
-            String telephone = jwtUtil.getTelephone(token);
-            String savaVersion = ssoInterceptor.redisUtil.get(ConstantUtil.TOKEN_VERSION.concat(telephone)).toString();
-            log.info("currentVersion-------------------------------------" + currentVersion);
-            log.info("savaVersion-------------------------------------" + savaVersion);
-            if (!currentVersion.equals(savaVersion)) {
+            String telephone = ssoInterceptor.jwtUtil.getTelephone(token);
+            if(ssoInterceptor.redisUtil.hasKey(ConstantUtil.TOKEN_VERSION.concat(telephone))){
+                String currentVersion = ssoInterceptor.jwtUtil.getVersion(token);
+                String savaVersion = ssoInterceptor.redisUtil.get(ConstantUtil.TOKEN_VERSION.concat(telephone)).toString();
+                if (!currentVersion.equals(savaVersion)) {
+                    throw new BusinessException(ResultCode.USER_LOGIN_ERROR);
+                }
+            }else {
                 throw new BusinessException(ResultCode.USER_LOGIN_ERROR);
             }
-            return true;
         }
         return true;
     }
