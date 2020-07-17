@@ -38,3 +38,9 @@ mybatis-plus:
     # 将执行的sql打印出来，开发或测试环境使用
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
+#线程池参数信息
+thread-pool:
+  core-pool-size: 10
+  max-pool-size: 100
+  queue-capacity: 50
+  keep-alive-seconds: 60
