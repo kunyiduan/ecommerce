@@ -23,3 +23,35 @@ mybatis-plus:
       db-type: mysql
   instance:
     preferIpAddress: true
+
+feign:
+  compression:
+    request:
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+      enabled: true
+    response:
+      enabled: true
+  hystrix:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+      circuitBreaker:
+        enabled: true
+        requestVolumeThreshold: 1000
+      fallback:
+        enabled: true
+        isolation:
+          semaphore:
+            maxConcurrentRequests: 100
+  threadpool:
+    default:
+      coreSize: 50
+      maximumSize: 1500
+      allowMaximumSizeToDivergeFromCoreSize: true
+      maxQueueSize: -1

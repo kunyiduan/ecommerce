@@ -4,12 +4,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.kunyiduan.bean.PointsVO;
 import com.kunyiduan.bean.user.LoginPhoneVO;
 import com.kunyiduan.bean.user.RegisterVO;
 import com.kunyiduan.bean.user.UserInfoVO;
 import com.kunyiduan.entity.User;
 import com.kunyiduan.enums.ResultCode;
 import com.kunyiduan.exception.BusinessException;
+import com.kunyiduan.feign.PointsFeignClient;
 import com.kunyiduan.jwt.JwtUtil;
 import com.kunyiduan.mapper.UserMapper;
 import com.kunyiduan.service.UserService;
@@ -53,9 +55,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Autowired
     private RedisUtil redisUtil;
 
+    @Autowired
+    private PointsFeignClient pointsFeignClient;
+
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public Boolean register(RegisterVO registerVO) {
+    public boolean register(RegisterVO registerVO) {
         User user = new User();
         BeanUtils.copyProperties(registerVO,user);
         String originalPassword = aesUtil.decrypt(registerVO.getPassword());
@@ -64,6 +69,12 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setCreateTime(date);
         user.setUpdateTime(date);
         int count = baseMapper.insert(user);
+
+        //注册成功，送100积分--异步调用
+        User userByPhone = this.getUserByPhone(registerVO.getTelephone());
+        log.info(userByPhone.toString());
+        PointsVO pointsVO = new PointsVO(userByPhone.getId(),100);
+        Boolean flag = pointsFeignClient.create(pointsVO);
         return count == 1 ? true : false;
     }
 

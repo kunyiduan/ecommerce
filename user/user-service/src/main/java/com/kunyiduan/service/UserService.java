@@ -16,7 +16,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UserService extends IService<User> {
 
-    Boolean register(RegisterVO registerVO);
+    boolean register(RegisterVO registerVO);
 
     String login(LoginPhoneVO loginPhoneVO);
 
