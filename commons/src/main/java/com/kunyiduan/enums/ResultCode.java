@@ -6,7 +6,7 @@ public enum ResultCode {
     SUCCESS(200, "成功"),
 
     /* 系统500错误*/
-    SYSTEM_ERROR(10000, "系统异常，请稍后重试"),
+    SYSTEM_ERROR(444, "系统异常，请稍后重试"),
     UNAUTHORIZED(10401, "签名验证失败"),
 
     /* 参数错误：10001-19999 */
