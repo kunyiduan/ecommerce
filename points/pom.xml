@@ -2,7 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <packaging>pom</packaging>
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
@@ -13,11 +12,14 @@
         <module>points-api</module>
         <module>points-service</module>
     </modules>
+
     <groupId>com.kunyiduan</groupId>
     <artifactId>points</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>points</name>
+    <packaging>pom</packaging>
+    <version>0.0.1-SNAPSHOT</version>
     <description>points service</description>
+    <url>http://maven.apache.org</url>
 
     <dependencies>
         <dependency>

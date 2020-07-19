@@ -29,7 +29,7 @@ public class PointsServiceImpl extends ServiceImpl<PointsMapper, Points> impleme
     private PointsMapper pointsMapper;
 
     @Override
-    //@Async默认使用单线程化的线程池，无法重用线程，故通常会常见可缓存的线程池
+    //@Async默认使用newSingleThreadExecutor，无法重用线程，故通常自定义线程池
     @Async("pointsPool")
     public Boolean create(PointsVO pointsVO) {
         Points points = new Points();
@@ -37,7 +37,6 @@ public class PointsServiceImpl extends ServiceImpl<PointsMapper, Points> impleme
         Date date = new Date();
         points.setCreateTime(date);
         points.setUpdateTime(date);
-        log.info(points.toString());
         int count = pointsMapper.insert(points);
         return count == 1 ? true : false;
     }

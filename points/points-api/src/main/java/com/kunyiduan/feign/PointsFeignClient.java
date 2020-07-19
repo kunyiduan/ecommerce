@@ -13,12 +13,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @FeignClient(name = "POINTS", fallbackFactory = PointsFeignFallback.class)
 @RequestMapping("/points")
+@ResponseBody
 @Api("积分对外API")
 public interface PointsFeignClient {
 
     @ApiOperation("添加积分")
     @PostMapping(value = "/create")
-    @ResponseBody
     Boolean create(@RequestBody @Validated PointsVO pointsVO);
 
 }

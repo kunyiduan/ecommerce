@@ -34,6 +34,7 @@ public class SyncConfiguration {
 
     @Bean(name = "pointsPool")
     public ThreadPoolTaskExecutor getScorePoolTaskExecutor() {
+        //默认创建newCachedThreadPool-可缓存的线程池，超出核心线程数时，将回收空闲线程
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
         //核心线程数
         taskExecutor.setCorePoolSize(threadPool.getCorePoolSize());

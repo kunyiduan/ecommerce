@@ -10,11 +10,14 @@
 
     <artifactId>points-api</artifactId>
     <name>points-api</name>
+    <description>points-api</description>
+    <packaging>jar</packaging>
     <url>http://maven.apache.org</url>
 
     <properties>
         <java.version>1.8</java.version>
         <spring-cloud.version>Hoxton.SR6</spring-cloud.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencyManagement>
@@ -41,30 +44,5 @@
             </plugin>
         </plugins>
     </build>
-
-    <!--<dependencies>-->
-
-        <!--<dependency>-->
-            <!--<groupId>org.springframework.boot</groupId>-->
-            <!--<artifactId>spring-boot-starter-web</artifactId>-->
-        <!--</dependency>-->
-
-        <!--<dependency>-->
-            <!--<groupId>junit</groupId>-->
-            <!--<artifactId>junit</artifactId>-->
-            <!--<version>3.8.1</version>-->
-            <!--<scope>test</scope>-->
-        <!--</dependency>-->
-    <!--</dependencies>-->
-
-
-    <!--<build>-->
-        <!--<plugins>-->
-            <!--<plugin>-->
-                <!--<groupId>org.springframework.boot</groupId>-->
-                <!--<artifactId>spring-boot-maven-plugin</artifactId>-->
-            <!--</plugin>-->
-        <!--</plugins>-->
-    <!--</build>-->
 
 </project>
