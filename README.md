@@ -1,4 +1,6 @@
-# 基于Spring cloud的后端项目
+# 基于Spring cloud的项目
+概述：基于对spring cloud的理解，实现可直接复用的分布式项目<br>
+技术：spring cloud,spring security,eureka,feign,hystrix,ribbon,swagger,jwt,lombok,druid,mybatis,mybatis-plus,mysql,redis,异步调用,对称加密<br>
 ## 零、注册中心服务
 单节点eureka注册中心<br>
 ## 一、用户服务
