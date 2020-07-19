@@ -49,4 +49,5 @@ token:
   expired: 1296000000 # 15*24*60*60*1000
   secret: Uk8eVNmrOmJjt8IIRz5Y4xOlYspP4Lp1
 
-
+user:
+  expired: 1296000000 # 15*24*60*60*1000

@@ -22,11 +22,13 @@ import com.kunyiduan.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Date;
+import java.util.Random;
 
 /**
  * <p>
@@ -58,6 +60,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Autowired
     private PointsFeignClient pointsFeignClient;
 
+    @Value("${user.expired}")
+    private int useExpired;
+
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public boolean register(RegisterVO registerVO) {
@@ -69,12 +74,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         user.setCreateTime(date);
         user.setUpdateTime(date);
         int count = baseMapper.insert(user);
-
         //注册成功，送100积分--异步调用
         User userByPhone = this.getUserByPhone(registerVO.getTelephone());
         log.info(userByPhone.toString());
         PointsVO pointsVO = new PointsVO(userByPhone.getId(),100);
-        Boolean flag = pointsFeignClient.create(pointsVO);
+        pointsFeignClient.create(pointsVO);
         return count == 1 ? true : false;
     }
 
@@ -105,6 +109,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
+    @Transactional(rollbackFor = RuntimeException.class)
     public void modifyPassword(String telephone, String currentPassword, String newPassword) {
         User user = this.getUserByPhone(telephone);
         String currentOriginalPassword = aesUtil.decrypt(currentPassword);
@@ -129,7 +134,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public void logout(String token) {
         String telephone = jwtUtil.getTelephone(token);
-        redisUtil.del(ConstantUtil.USER_TELEPHONE.concat(telephone));
         //退出登录之后，签发的token失效
         redisUtil.del(ConstantUtil.TOKEN_VERSION.concat(telephone));
     }
@@ -143,7 +147,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             LambdaQueryWrapper<User> queryWrapper = Wrappers.lambdaQuery();
             queryWrapper.eq(User::getTelephone,telephone);
             user = userMapper.selectOne(queryWrapper);
-            redisUtil.set(ConstantUtil.USER_TELEPHONE.concat(telephone),user);
+            //用户信息缓存设置15-18天过期策略-缓存雪崩；用户不活跃，缓存失效，避免用户信息永久存储与redis
+            redisUtil.set(ConstantUtil.USER_TELEPHONE.concat(telephone),user,new Random().nextInt(259200)+useExpired);
         }
         return user;
     }

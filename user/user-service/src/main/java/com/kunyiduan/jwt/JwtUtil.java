@@ -29,6 +29,8 @@ public class JwtUtil {
     @Value(value = "${token.secret}")
     private String secret;
 
+    private final static String tokenPrefix = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.";
+
     //解决redisUtil无法注入导致的空指针异常
     private static JwtUtil jwtUtil;
 
@@ -36,7 +38,7 @@ public class JwtUtil {
     private RedisUtil redisUtil;
 
     @PostConstruct
-    public void init(){
+    public void init() {
         if (Objects.isNull(jwtUtil)) {
             jwtUtil = new JwtUtil();
         }
@@ -45,86 +47,93 @@ public class JwtUtil {
 
     /**
      * 生成token
+     *
      * @param id
      * @param telephone
      * @return
      */
-    public String sign(String id,String telephone) {
+    public String sign(String id, String telephone) {
         long version = System.currentTimeMillis();
-        jwtUtil.redisUtil.set(ConstantUtil.TOKEN_VERSION.concat(telephone),String.valueOf(version));
-        Date date = new Date(version+expired);
-        Map<String,Object> header = new HashMap<>(2);
-        header.put("alg","HS256");
-        header.put("typ","JWT");
+        jwtUtil.redisUtil.set(ConstantUtil.TOKEN_VERSION.concat(telephone), String.valueOf(version), expired);
+        Date date = new Date(version + expired);
+        Map<String, Object> header = new HashMap<>(2);
+        header.put("alg", "HS256");
+        header.put("typ", "JWT");
         //header + payload + signature
         String token = JWT.create().withHeader(header)
-                .withClaim("id",id).withClaim("telephone",telephone).withClaim("version",String.valueOf(version))
+                .withClaim("id", id).withClaim("telephone", telephone).withClaim("version", String.valueOf(version))
                 .withExpiresAt(date).sign(Algorithm.HMAC256(secret));
-        return token;
+        String[] split = token.split("\\.");
+        String result = split[1] + "." + split[2];
+        return result;
     }
 
     /**
      * 验证token是否有效
+     *
      * @param token
      * @return
      */
-    public Boolean verify(String token){
-        try{
+    public Boolean verify(String token) {
+        try {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret)).build();
-            verifier.verify(token);
+            verifier.verify(tokenPrefix + token);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             return false;
         }
     }
 
     /**
      * 通过token获取id
+     *
      * @param token
      * @return
      */
     public String getId(String token) {
-        try{
+        try {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret)).build();
-            DecodedJWT jwt = verifier.verify(token);
+            DecodedJWT jwt = verifier.verify(tokenPrefix + token);
             Map<String, Claim> claimMap = jwt.getClaims();
             String id = claimMap.get("id").asString();
             return id;
-        } catch (TokenExpiredException e){
+        } catch (TokenExpiredException e) {
             throw new BusinessException(ResultCode.TOKEN_EXPIRED);
         }
     }
 
     /**
      * 通过token获取telephone
+     *
      * @param token
      * @return
      */
     public String getTelephone(String token) {
         try {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret)).build();
-            DecodedJWT jwt = verifier.verify(token);
+            DecodedJWT jwt = verifier.verify(tokenPrefix + token);
             Map<String, Claim> claimMap = jwt.getClaims();
             String telephone = claimMap.get("telephone").asString();
             return telephone;
-        } catch (TokenExpiredException e){
+        } catch (TokenExpiredException e) {
             throw new BusinessException(ResultCode.TOKEN_EXPIRED);
         }
     }
 
     /**
      * 通过token获取version
+     *
      * @param token
      * @return
      */
     public String getVersion(String token) {
-        try{
+        try {
             JWTVerifier verifier = JWT.require(Algorithm.HMAC256(secret)).build();
-            DecodedJWT jwt = verifier.verify(token);
+            DecodedJWT jwt = verifier.verify(tokenPrefix + token);
             Map<String, Claim> claimMap = jwt.getClaims();
             String version = claimMap.get("version").asString();
             return version;
-        } catch (TokenExpiredException e){
+        } catch (TokenExpiredException e) {
             throw new BusinessException(ResultCode.TOKEN_EXPIRED);
         }
     }
