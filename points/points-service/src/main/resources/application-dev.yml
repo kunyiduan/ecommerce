@@ -18,9 +18,6 @@ spring:
 
 swagger:
   enabled: true
-  basic:
-    username: root
-    password: 123456
 
 logging:
   level:
