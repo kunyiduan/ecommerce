@@ -1,0 +1,61 @@
+server:
+  #端口号
+  port: 8062
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: message
+  jackson:
+    time-zone: GMT+8
+
+mybatis-plus:
+  mapper-locations: classpath*:/mapper/*.xml
+  type-aliases-package: com.kunyiduan.entity
+  default-executor-type: REUSE
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  global-config:
+    db-config:
+      table-underline: true
+      id-type: ID_WORKER_STR
+      db-type: mysql
+  instance:
+    preferIpAddress: true
+
+feign:
+  compression:
+    request:
+      mime-types: text/xml,application/xml,application/json
+      min-request-size: 2048
+      enabled: true
+    response:
+      enabled: true
+  hystrix:
+    enabled: true
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 60000
+      circuitBreaker:
+        enabled: true
+        requestVolumeThreshold: 1000
+      fallback:
+        enabled: true
+        isolation:
+          semaphore:
+            maxConcurrentRequests: 100
+  threadpool:
+    default:
+      coreSize: 50
+      maximumSize: 1500
+      allowMaximumSizeToDivergeFromCoreSize: true
+      maxQueueSize: -1
