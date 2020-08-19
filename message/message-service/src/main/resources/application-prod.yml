@@ -1,0 +1,44 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost/message?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+    username: root
+    password: '123456'
+  redis:
+    host: localhost
+    port: 6379
+    database: 1
+    timeout: 2000
+  security:
+    basic:
+      enabled: true
+    user:
+      name: root
+      password: 123456
+
+#生产环境关闭swagger在线文档
+swagger:
+  enabled: false
+
+logging:
+  level:
+    root: info
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://root:123456@localhost:8761/eureka/
+  instance:
+    preferIpAddress: true
+
+mybatis-plus:
+  configuration:
+    # 将执行的sql打印出来，开发或测试环境使用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+#线程池参数信息
+thread-pool:
+  core-pool-size: 10
+  max-pool-size: 100
+  queue-capacity: 50
+  keep-alive-seconds: 60

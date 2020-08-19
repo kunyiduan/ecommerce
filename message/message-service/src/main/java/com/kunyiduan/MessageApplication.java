@@ -12,10 +12,10 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 @EnableFeignClients(basePackages = "com.kunyiduan")
 @MapperScan("com.kunyiduan.mapper")
 @SpringBootApplication
-public class PointsApplication {
+public class MessageApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(PointsApplication.class, args);
+        SpringApplication.run(MessageApplication.class, args);
     }
 
 }

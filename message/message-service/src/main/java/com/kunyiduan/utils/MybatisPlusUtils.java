@@ -27,7 +27,7 @@ public class MybatisPlusUtils {
     /**
      * 设置服务相关的全局变量
      */
-    private static String serviceModuleName = "points-service";
+    private static String serviceModuleName = "message-service";
     private static String packageParentPath = "com.kunyiduan";
 
     /**
@@ -66,7 +66,7 @@ public class MybatisPlusUtils {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/points?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8");
+        dsc.setUrl("jdbc:mysql://localhost:3306/message?useUnicode=true&serverTimezone=GMT&useSSL=false&characterEncoding=utf8");
         // dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");
