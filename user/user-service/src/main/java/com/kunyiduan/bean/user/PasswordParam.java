@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
-@ApiModel("修改密码VO")
+@ApiModel("修改密码Param")
 @Getter
 @Setter
 @NoArgsConstructor

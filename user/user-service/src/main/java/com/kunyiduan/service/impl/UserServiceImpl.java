@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.kunyiduan.bean.PointsVO;
+import com.kunyiduan.bean.PointsParam;
 import com.kunyiduan.bean.user.LoginPhoneParam;
 import com.kunyiduan.bean.user.RegisterParam;
 import com.kunyiduan.bean.user.UserBO;
@@ -81,8 +81,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         //注册成功，送100积分--异步调用
         UserBO userBO = this.getUserByPhone(registerParam.getTelephone());
         log.debug(userBO.toString());
-        PointsVO pointsVO = new PointsVO(Long.parseLong(userBO.getId()),100);
-        pointsFeignClient.create(pointsVO);
+        PointsParam pointsParam = new PointsParam(Long.parseLong(userBO.getId()),100);
+        pointsFeignClient.create(pointsParam);
         return count == 1 ? true : false;
     }
 

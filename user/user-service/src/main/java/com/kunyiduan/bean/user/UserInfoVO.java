@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 /**
  * Created by duankunyi on 2020/7/12.
  */
-@ApiModel("响应用户信息VO")
+@ApiModel("用户信息VO")
 @Data
 @NoArgsConstructor
 public class UserInfoVO {
