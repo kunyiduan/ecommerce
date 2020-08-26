@@ -11,7 +11,7 @@ import org.hibernate.validator.constraints.Length;
 @Getter
 @Setter
 @NoArgsConstructor
-public class PasswordVO {
+public class PasswordParam {
 
     @ApiModelProperty(required = true,position = 1,value = "当前密码")
     @Length(min = 64, max = 64,message = "密码加密错误")

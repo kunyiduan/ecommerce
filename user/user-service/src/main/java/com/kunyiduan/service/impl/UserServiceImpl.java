@@ -5,8 +5,9 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kunyiduan.bean.PointsVO;
-import com.kunyiduan.bean.user.LoginPhoneVO;
-import com.kunyiduan.bean.user.RegisterVO;
+import com.kunyiduan.bean.user.LoginPhoneParam;
+import com.kunyiduan.bean.user.RegisterParam;
+import com.kunyiduan.bean.user.UserBO;
 import com.kunyiduan.bean.user.UserInfoVO;
 import com.kunyiduan.entity.User;
 import com.kunyiduan.enums.ResultCode;
@@ -15,20 +16,23 @@ import com.kunyiduan.feign.PointsFeignClient;
 import com.kunyiduan.jwt.JwtUtil;
 import com.kunyiduan.mapper.UserMapper;
 import com.kunyiduan.service.UserService;
-import com.kunyiduan.utils.AesUtil;
+import com.kunyiduan.util.AESUtil;
+import com.kunyiduan.util.EncryptUtil;
 import com.kunyiduan.utils.ConstantUtil;
-import com.kunyiduan.utils.EncryptUtil;
-import com.kunyiduan.utils.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.ObjectUtils;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.TimeUnit;
 
 /**
  * <p>
@@ -49,47 +53,47 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private EncryptUtil encryptUtil;
 
     @Autowired
-    private AesUtil aesUtil;
+    private AESUtil AESUtil;
 
     @Autowired
     private JwtUtil jwtUtil;
 
     @Autowired
-    private RedisUtil redisUtil;
+    private RedisTemplate redisTemplate;
 
     @Autowired
     private PointsFeignClient pointsFeignClient;
 
-    @Value("${user.expired}")
-    private int useExpired;
+    @Value("${user.redis.expired.time:}")
+    private int useRedisExpiredTime;
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
-    public boolean register(RegisterVO registerVO) {
+    public boolean register(RegisterParam registerParam) {
         User user = new User();
-        BeanUtils.copyProperties(registerVO,user);
-        String originalPassword = aesUtil.decrypt(registerVO.getPassword());
+        BeanUtils.copyProperties(registerParam,user);
+        String originalPassword = AESUtil.decrypt(registerParam.getPassword());
         user.setPassword(encryptUtil.encryptSha1(originalPassword));
         Date date = new Date();
         user.setCreateTime(date);
         user.setUpdateTime(date);
         int count = baseMapper.insert(user);
         //注册成功，送100积分--异步调用
-        User userByPhone = this.getUserByPhone(registerVO.getTelephone());
-        log.info(userByPhone.toString());
-        PointsVO pointsVO = new PointsVO(userByPhone.getId(),100);
+        UserBO userBO = this.getUserByPhone(registerParam.getTelephone());
+        log.debug(userBO.toString());
+        PointsVO pointsVO = new PointsVO(Long.parseLong(userBO.getId()),100);
         pointsFeignClient.create(pointsVO);
         return count == 1 ? true : false;
     }
 
     @Override
-    public String login(LoginPhoneVO loginPhoneVO) {
-        User user = this.getUserByPhone(loginPhoneVO.getTelephone());
-        if(!ObjectUtils.isEmpty(user)){
-            String originalPassword = aesUtil.decrypt(loginPhoneVO.getPassword());
+    public String login(LoginPhoneParam loginPhoneParam) {
+        UserBO userBO = this.getUserByPhone(loginPhoneParam.getTelephone());
+        if(userBO != null){
+            String originalPassword = AESUtil.decrypt(loginPhoneParam.getPassword());
             String encryptionPassword = encryptUtil.encryptSha1(originalPassword);
-            if(user.getPassword().equals(encryptionPassword)){
-                String token = jwtUtil.sign(String.valueOf(user.getId()),user.getTelephone());
+            if(userBO.getPassword().equals(encryptionPassword)){
+                String token = jwtUtil.sign(userBO.getId(),userBO.getTelephone());
                 return token;
             }else {
                 throw new BusinessException(ResultCode.USER_PASSWORD_ERROR);
@@ -102,21 +106,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public UserInfoVO getUserInfoByToken(String token) {
         String telephone = jwtUtil.getTelephone(token);
-        User user = this.getUserByPhone(telephone);
+        UserBO userBO = this.getUserByPhone(telephone);
         UserInfoVO userInfoVO = new UserInfoVO();
-        BeanUtils.copyProperties(user,userInfoVO);
+        BeanUtils.copyProperties(userBO,userInfoVO);
         return userInfoVO;
     }
 
     @Override
     @Transactional(rollbackFor = RuntimeException.class)
     public void modifyPassword(String telephone, String currentPassword, String newPassword) {
-        User user = this.getUserByPhone(telephone);
-        String currentOriginalPassword = aesUtil.decrypt(currentPassword);
+        UserBO userBO = this.getUserByPhone(telephone);
+        String currentOriginalPassword = AESUtil.decrypt(currentPassword);
         String currentEncryptionPassword = encryptUtil.encryptSha1(currentOriginalPassword);
-        if(!ObjectUtils.isEmpty(user)){
-            if(user.getPassword().equals(currentEncryptionPassword)){
-                String newOriginalPassword = aesUtil.decrypt(newPassword);
+        if(!ObjectUtils.isEmpty(userBO)){
+            if(userBO.getPassword().equals(currentEncryptionPassword)){
+                String newOriginalPassword = AESUtil.decrypt(newPassword);
                 String newEncryptionPassword = encryptUtil.encryptSha1(newOriginalPassword);
                 LambdaUpdateWrapper<User> updateWrapper = Wrappers.lambdaUpdate();
                 Date date = new Date();
@@ -124,7 +128,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
                              .set(User::getUpdateTime,date)
                              .eq(User::getTelephone,telephone);
                 userMapper.update(null,updateWrapper);
-                redisUtil.del(ConstantUtil.USER_TELEPHONE.concat(telephone));
+                redisTemplate.delete(ConstantUtil.USER_TELEPHONE.concat(telephone));
             }else {
                 throw new BusinessException(ResultCode.USER_PASSWORD_ERROR);
             }
@@ -135,22 +139,41 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public void logout(String token) {
         String telephone = jwtUtil.getTelephone(token);
         //退出登录之后，签发的token失效
-        redisUtil.del(ConstantUtil.TOKEN_VERSION.concat(telephone));
+        redisTemplate.delete(ConstantUtil.TOKEN_VERSION.concat(telephone));
     }
 
     @Override
-    public User getUserByPhone(String telephone) {
-        User user;
-        if(redisUtil.hasKey(ConstantUtil.USER_TELEPHONE.concat(telephone))){
-            user = (User) redisUtil.get(ConstantUtil.USER_TELEPHONE.concat(telephone));
+    public UserBO getUserByPhone(String telephone) {
+        UserBO userBO = new UserBO();
+        if(redisTemplate.hasKey(ConstantUtil.USER_TELEPHONE.concat(telephone))){
+            Map userEntries = redisTemplate.boundHashOps(ConstantUtil.USER_TELEPHONE.concat(telephone)).entries();
+            userBO.setId(String.valueOf(userEntries.get("id")));
+            userBO.setBirthday((Date) userEntries.get("birthday"));
+            userBO.setEmail(String.valueOf(userEntries.get("email")));
+            userBO.setNickName(String.valueOf(userEntries.get("nickName")));
+            userBO.setPassword(String.valueOf(userEntries.get("password")));
+            userBO.setPhoto(String.valueOf(userEntries.get("photo")));
+            userBO.setTelephone(String.valueOf(userEntries.get("telephone")));
         }else {
             LambdaQueryWrapper<User> queryWrapper = Wrappers.lambdaQuery();
-            queryWrapper.eq(User::getTelephone,telephone);
-            user = userMapper.selectOne(queryWrapper);
-            //用户信息缓存设置15-18天过期策略-缓存雪崩；用户不活跃，缓存失效，避免用户信息永久存储与redis
-            redisUtil.set(ConstantUtil.USER_TELEPHONE.concat(telephone),user,new Random().nextInt(259200)+useExpired);
+            queryWrapper.eq(User::getTelephone,telephone).eq(User::getStatus,1);
+            User user = userMapper.selectOne(queryWrapper);
+
+            Map<String,Object> userMap = new HashMap<>(8);
+            userMap.put("id",user.getId());
+            userMap.put("telephone",user.getTelephone());
+            userMap.put("nickName",user.getNickName());
+            userMap.put("photo",user.getPhoto());
+            userMap.put("password",user.getPassword());
+            userMap.put("email",user.getEmail());
+            userMap.put("birthday",user.getBirthday());
+            redisTemplate.opsForHash().putAll(ConstantUtil.USER_TELEPHONE.concat(telephone),userMap);
+            //用户信息缓存设置5-6天过期策略-缓存雪崩；用户不活跃，缓存失效，避免用户信息永久存储与redis
+            redisTemplate.expire(ConstantUtil.USER_TELEPHONE.concat(telephone),new Random().nextInt(24*60*60)+useRedisExpiredTime, TimeUnit.SECONDS);
+
+            BeanUtils.copyProperties(user,userBO);
         }
-        return user;
+        return userBO;
     }
 
 }

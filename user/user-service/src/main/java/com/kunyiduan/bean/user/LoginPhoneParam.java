@@ -11,11 +11,11 @@ import org.hibernate.validator.constraints.Length;
 /**
  * Created by duankunyi on 2020/7/12.
  */
-@ApiModel("手机号登录VO")
+@ApiModel("手机号登录Param")
 @Getter
 @Setter
 @NoArgsConstructor
-public class LoginPhoneVO {
+public class LoginPhoneParam {
 
     @ApiModelProperty(required = true,position = 1,value = "手机号")
     @Phone

@@ -1,8 +1,8 @@
-package com.kunyiduan.utils;
+package com.kunyiduan.util;
 
 import org.springframework.stereotype.Component;
 
 @Component
-public class RsaUtil {
+public class RSAUtil {
 
 }

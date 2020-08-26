@@ -5,13 +5,15 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 /**
- * Created by duankunyi on 2020/7/12.
+ * Created by duankunyi on 2020/8/26.
  */
-@ApiModel("响应用户信息VO")
+@ApiModel("service层输出业务对象")
 @Data
 @NoArgsConstructor
-public class UserInfoVO {
+public class UserBO {
 
     @ApiModelProperty("id")
     private String id;
@@ -25,4 +27,14 @@ public class UserInfoVO {
     @ApiModelProperty("头像地址")
     private String photo;
 
+    @ApiModelProperty("生日")
+    private Date birthday;
+
+    @ApiModelProperty("邮箱")
+    private String email;
+
+    @ApiModelProperty("密码")
+    private String password;
+
 }
+

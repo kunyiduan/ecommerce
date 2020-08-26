@@ -13,6 +13,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UserInfoVO {
 
+    @ApiModelProperty("id")
+    private String id;
+
     @ApiModelProperty("手机号")
     private String telephone;
 

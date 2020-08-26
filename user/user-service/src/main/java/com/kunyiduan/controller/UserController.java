@@ -1,8 +1,8 @@
 package com.kunyiduan.controller;
 
-import com.kunyiduan.bean.user.LoginPhoneVO;
-import com.kunyiduan.bean.user.PasswordVO;
-import com.kunyiduan.bean.user.RegisterVO;
+import com.kunyiduan.bean.user.LoginPhoneParam;
+import com.kunyiduan.bean.user.PasswordParam;
+import com.kunyiduan.bean.user.RegisterParam;
 import com.kunyiduan.bean.user.UserInfoVO;
 import com.kunyiduan.jwt.JwtUtil;
 import com.kunyiduan.service.UserService;
@@ -33,25 +33,25 @@ public class UserController {
 
     /**
      * 密码使用AES加密
-     * @param registerVO
+     * @param registerParam
      * @return
      */
     @ApiOperation("注册")
     @PostMapping("/register")
-    public Boolean register(@RequestBody @Validated RegisterVO registerVO){
-        Boolean flag = userService.register(registerVO);
+    public Boolean register(@RequestBody @Validated RegisterParam registerParam){
+        Boolean flag = userService.register(registerParam);
         return flag;
     }
 
     /**
      * 登录成功返回token
-     * @param loginPhoneVO
+     * @param loginPhoneParam
      * @return
      */
     @ApiOperation("登录")
     @PostMapping("/login")
-    public String login(@RequestBody @Validated LoginPhoneVO loginPhoneVO){
-        String token = userService.login(loginPhoneVO);
+    public String login(@RequestBody @Validated LoginPhoneParam loginPhoneParam){
+        String token = userService.login(loginPhoneParam);
         return token;
     }
 
@@ -64,9 +64,9 @@ public class UserController {
 
     @ApiOperation("修改密码")
     @PostMapping("/password")
-    public void modifyPassword(@RequestHeader("token") String token, @RequestBody @Validated PasswordVO passwordVO){
+    public void modifyPassword(@RequestHeader("token") String token, @RequestBody @Validated PasswordParam passwordParam){
         String telephone = jwtUtil.getTelephone(token);
-        userService.modifyPassword(telephone,passwordVO.getCurrentPassword(),passwordVO.getNewPassword());
+        userService.modifyPassword(telephone, passwordParam.getCurrentPassword(), passwordParam.getNewPassword());
     }
 
 

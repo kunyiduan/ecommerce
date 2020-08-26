@@ -1,7 +1,8 @@
 package com.kunyiduan.service;
 
-import com.kunyiduan.bean.user.LoginPhoneVO;
-import com.kunyiduan.bean.user.RegisterVO;
+import com.kunyiduan.bean.user.LoginPhoneParam;
+import com.kunyiduan.bean.user.RegisterParam;
+import com.kunyiduan.bean.user.UserBO;
 import com.kunyiduan.bean.user.UserInfoVO;
 import com.kunyiduan.entity.User;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -16,9 +17,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface UserService extends IService<User> {
 
-    boolean register(RegisterVO registerVO);
+    boolean register(RegisterParam registerParam);
 
-    String login(LoginPhoneVO loginPhoneVO);
+    String login(LoginPhoneParam loginPhoneParam);
 
     UserInfoVO getUserInfoByToken(String token);
 
@@ -26,7 +27,6 @@ public interface UserService extends IService<User> {
 
     void logout(String token);
 
-
-    User getUserByPhone(String telephone);
+    UserBO getUserByPhone(String telephone);
 
 }

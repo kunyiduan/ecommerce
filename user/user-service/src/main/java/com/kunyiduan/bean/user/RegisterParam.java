@@ -16,7 +16,7 @@ import java.util.Date;
 @Getter
 @Setter
 @NoArgsConstructor
-public class RegisterVO {
+public class RegisterParam {
 
     @ApiModelProperty(required = true, position = 1, value = "电话号码")
     @Phone
