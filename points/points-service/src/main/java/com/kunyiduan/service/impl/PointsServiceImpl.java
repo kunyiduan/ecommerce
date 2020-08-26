@@ -1,6 +1,6 @@
 package com.kunyiduan.service.impl;
 
-import com.kunyiduan.bean.points.PointsVO;
+import com.kunyiduan.bean.points.PointsParam;
 import com.kunyiduan.entity.Points;
 import com.kunyiduan.mapper.PointsMapper;
 import com.kunyiduan.service.PointsService;
@@ -31,9 +31,9 @@ public class PointsServiceImpl extends ServiceImpl<PointsMapper, Points> impleme
     @Override
     //@Async默认使用newSingleThreadExecutor，无法重用线程，故通常自定义线程池
     @Async("pointsPool")
-    public Boolean create(PointsVO pointsVO) {
+    public Boolean create(PointsParam pointsParam) {
         Points points = new Points();
-        BeanUtils.copyProperties(pointsVO,points);
+        BeanUtils.copyProperties(pointsParam,points);
         Date date = new Date();
         points.setCreateTime(date);
         points.setUpdateTime(date);

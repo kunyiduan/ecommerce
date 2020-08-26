@@ -1,6 +1,6 @@
 package com.kunyiduan.controller;
 
-import com.kunyiduan.bean.points.PointsVO;
+import com.kunyiduan.bean.points.PointsParam;
 import com.kunyiduan.service.PointsService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,8 +29,8 @@ public class PointsController {
 
     @ApiOperation("添加积分")
     @PostMapping("/create")
-    public Boolean create(@RequestBody @Validated PointsVO pointsVO){
-        Boolean flag = pointsService.create(pointsVO);
+    public Boolean create(@RequestBody @Validated PointsParam pointsParam){
+        Boolean flag = pointsService.create(pointsParam);
         return flag;
     }
 

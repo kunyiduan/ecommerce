@@ -1,6 +1,6 @@
 package com.kunyiduan.fallback;
 
-import com.kunyiduan.bean.PointsVO;
+import com.kunyiduan.bean.PointsParam;
 import com.kunyiduan.feign.PointsFeignClient;
 import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
@@ -19,7 +19,7 @@ public class PointsFeignFallback implements FallbackFactory<PointsFeignClient> {
     public PointsFeignClient create(Throwable throwable) {
         return new PointsFeignClient() {
             @Override
-            public Boolean create(@RequestBody @Validated PointsVO pointsVO) {
+            public Boolean create(@RequestBody @Validated PointsParam pointsParam) {
                 log.info("points feign create fallback");
                 return null;
             }

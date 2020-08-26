@@ -1,4 +1,4 @@
-package com.kunyiduan.utils;
+package com.kunyiduan.util;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
@@ -22,7 +22,7 @@ import java.util.Scanner;
 /**
  * Created by duankunyi on 2020/7/8.
  */
-public class MybatisPlusUtils {
+public class MybatisPlusUtil {
 
     /**
      * 设置服务相关的全局变量

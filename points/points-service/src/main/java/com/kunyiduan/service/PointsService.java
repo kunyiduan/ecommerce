@@ -1,6 +1,6 @@
 package com.kunyiduan.service;
 
-import com.kunyiduan.bean.points.PointsVO;
+import com.kunyiduan.bean.points.PointsParam;
 import com.kunyiduan.entity.Points;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -14,6 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface PointsService extends IService<Points> {
 
-    Boolean create(PointsVO pointsVO);
+    Boolean create(PointsParam pointsParam);
 
 }

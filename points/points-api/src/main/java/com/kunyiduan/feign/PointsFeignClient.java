@@ -1,6 +1,6 @@
 package com.kunyiduan.feign;
 
-import com.kunyiduan.bean.PointsVO;
+import com.kunyiduan.bean.PointsParam;
 import com.kunyiduan.fallback.PointsFeignFallback;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -19,6 +19,6 @@ public interface PointsFeignClient {
 
     @ApiOperation("添加积分")
     @PostMapping(value = "/create")
-    Boolean create(@RequestBody @Validated PointsVO pointsVO);
+    Boolean create(@RequestBody @Validated PointsParam pointsParam);
 
 }

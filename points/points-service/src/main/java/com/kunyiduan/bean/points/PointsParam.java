@@ -11,10 +11,10 @@ import javax.validation.constraints.NotNull;
 /**
  * Created by duankunyi on 2020/7/15.
  */
-@ApiModel("积分VO")
+@ApiModel("积分Param")
 @Data
 @NoArgsConstructor
-public class PointsVO {
+public class PointsParam {
 
     private static final long serialVersionUID = 1L;
 
@@ -26,7 +26,7 @@ public class PointsVO {
     @Min(value = 0,message = "积分不能为负数")
     private Integer points;
 
-    public PointsVO(@NotNull(message = "用户ID不能为空") Long userId, @Min(value = 0, message = "积分不能为负数") Integer points) {
+    public PointsParam(@NotNull(message = "用户ID不能为空") Long userId, @Min(value = 0, message = "积分不能为负数") Integer points) {
         this.userId = userId;
         this.points = points;
     }
