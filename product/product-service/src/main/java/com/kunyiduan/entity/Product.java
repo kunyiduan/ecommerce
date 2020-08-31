@@ -1,11 +1,15 @@
 package com.kunyiduan.entity;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Date;
 
 /**
  * <p>
@@ -25,6 +29,7 @@ public class Product implements Serializable {
     /**
      * ID
      */
+    @TableId(type = IdType.ID_WORKER)
     private Long id;
 
     /**
@@ -50,7 +55,8 @@ public class Product implements Serializable {
     /**
      * 购买是否有积分
      */
-    private Boolean isPoints;
+    @TableField(value = "is_send_points")
+    private Boolean SendPoints;
 
     /**
      * 可购买数量
@@ -65,7 +71,7 @@ public class Product implements Serializable {
     /**
      * 状态：0-未上架，1-预售，2-上架，3-下架
      */
-    private Boolean status;
+    private Integer status;
 
     /**
      * 描述
@@ -75,12 +81,11 @@ public class Product implements Serializable {
     /**
      * 创建时间
      */
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 更新时间
      */
-    private LocalDateTime updateTime;
-
+    private Date updateTime;
 
 }
