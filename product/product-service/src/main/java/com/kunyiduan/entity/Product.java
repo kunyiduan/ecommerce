@@ -53,6 +53,11 @@ public class Product implements Serializable {
     private Integer categoryId;
 
     /**
+     * 品牌编号
+     */
+    private Integer brandId;
+
+    /**
      * 购买是否有积分
      */
     @TableField(value = "is_send_points")

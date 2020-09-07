@@ -25,6 +25,7 @@ CREATE TABLE `product` (
    `price` DECIMAL(8 , 2 ) NOT NULL COMMENT '商品价格',
    `market_price` DECIMAL(8 , 2 ) NOT NULL COMMENT '市场价格',
    `category_id` INT COMMENT '分类编号',
+   `brand_id` INT COMMENT '品牌编号',
    `is_send_points` BOOLEAN NOT NULL DEFAULT TRUE COMMENT '购买是否有积分',
    `quantity` INT(2) UNSIGNED NOT NULL COMMENT '可购买数量',
    `sales` INT(2) UNSIGNED COMMENT '销量',
