@@ -1,4 +1,4 @@
-package com.kunyiduan.utils;
+package com.kunyiduan.util;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;

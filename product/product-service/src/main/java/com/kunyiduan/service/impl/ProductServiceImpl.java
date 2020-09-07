@@ -1,13 +1,12 @@
 package com.kunyiduan.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kunyiduan.bean.product.ProductParam;
 import com.kunyiduan.entity.Product;
 import com.kunyiduan.mapper.ProductMapper;
 import com.kunyiduan.service.ProductService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;

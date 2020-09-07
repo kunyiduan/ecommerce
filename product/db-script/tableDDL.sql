@@ -1,8 +1,20 @@
+CREATE TABLE `brand` (
+     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
+     `name` VARCHAR(20) NOT NULL COMMENT '名字',
+     `telephone` CHAR(12) NOT NULL COMMENT '联系方式',
+     `country` VARCHAR(10) NOT NULL COMMENT '国家',
+     `province` VARCHAR(10) NOT NULL COMMENT '省份',
+     `city` VARCHAR(10) NOT NULL COMMENT '城市',
+     `address` VARCHAR(20) NOT NULL COMMENT '详细地址',
+     `create_time` DATETIME NOT NULL COMMENT '创建时间',
+     `update_time` DATETIME NOT NULL COMMENT '更新时间'
+) ENGINE=INNODB DEFAULT CHARSET=UTF8 COMMENT='品牌信息表';
+
 CREATE TABLE `product_category` (
     `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY COMMENT 'ID',
-    `first_classes` VARCHAR(16) NOT NULL COMMENT '商品一级分类',
-    `second_classes` VARCHAR(16) NOT NULL COMMENT '商品二级分类',
-    `third_classes` VARCHAR(16) NOT NULL COMMENT '商品三级分类',
+    `first_classification` VARCHAR(16) NOT NULL COMMENT '商品一级分类',
+    `second_classification` VARCHAR(16) NOT NULL COMMENT '商品二级分类',
+    `third_classification` VARCHAR(16) NOT NULL COMMENT '商品三级分类',
     `create_time` DATETIME NOT NULL COMMENT '创建时间',
     `update_time` DATETIME NOT NULL COMMENT '更新时间'
 )  ENGINE=INNODB DEFAULT CHARSET=UTF8 COMMENT='商品分类信息表';

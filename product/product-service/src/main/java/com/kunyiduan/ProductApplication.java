@@ -8,7 +8,6 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
 
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages = "com.kunyiduan")
-@MapperScan("com.kunyiduan.mapper")
 @SpringBootApplication
 public class ProductApplication {
 
