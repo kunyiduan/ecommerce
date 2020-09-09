@@ -29,9 +29,13 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     public boolean insertProduct(ProductParam productParam) {
         Product product = new Product();
         BeanUtils.copyProperties(productParam,product);
+        if(productParam.getPicture1()!=null){
+            //java hashCode可能为负数
+            product.setPic1Crc(Math.abs(productParam.getPicture1().hashCode()));
+        }
+        product.setStatus(0);
         product.setCreateTime(new Date());
         product.setUpdateTime(new Date());
-        product.setStatus(0);
         final int count = productMapper.insert(product);
         return count == 1 ? true : false;
     }

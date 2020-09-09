@@ -4,6 +4,7 @@ package com.kunyiduan.controller;
 import com.kunyiduan.bean.product.ProductParam;
 import com.kunyiduan.service.ProductService;
 import io.swagger.annotations.ApiOperation;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/product")
+@Slf4j
 public class ProductController {
 
     @Autowired
@@ -29,8 +31,9 @@ public class ProductController {
 
     @ApiOperation("/创建商品")
     @PostMapping("/createProduct")
-    public boolean createProduct(@Validated @RequestBody ProductParam productParam){
+    public boolean createProduct(@Validated @RequestBody ProductParam productParam) {
         final boolean result = productService.insertProduct(productParam);
+        log.debug("result of the createProduct is ------------" + result);
         return result;
     }
 

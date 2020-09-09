@@ -61,6 +61,16 @@ public class Brand implements Serializable {
     private String address;
 
     /**
+     * 图片地址1
+     */
+    private String picture;
+
+    /**
+     * 图片地址伪hash索引
+     */
+    private Integer picCrc;
+
+    /**
      * 创建时间
      */
     private Date createTime;
@@ -69,6 +79,5 @@ public class Brand implements Serializable {
      * 更新时间
      */
     private Date updateTime;
-
 
 }

@@ -38,14 +38,9 @@ public class Product implements Serializable {
     private String name;
 
     /**
-     * 商品价格
+     * 品牌编号
      */
-    private BigDecimal price;
-
-    /**
-     * 市场价格
-     */
-    private BigDecimal marketPrice;
+    private Integer brandId;
 
     /**
      * 分类编号
@@ -53,9 +48,14 @@ public class Product implements Serializable {
     private Integer categoryId;
 
     /**
-     * 品牌编号
+     * 价格
      */
-    private Integer brandId;
+    private BigDecimal price;
+
+    /**
+     * 促销价格
+     */
+    private BigDecimal promotionPrice;
 
     /**
      * 购买是否有积分
@@ -77,6 +77,41 @@ public class Product implements Serializable {
      * 状态：0-未上架，1-预售，2-上架，3-下架
      */
     private Integer status;
+
+    /**
+     * 图片地址1
+     */
+    private String picture1;
+
+    /**
+     * 图片地址1伪hash索引
+     */
+    private Integer pic1Crc;
+
+    /**
+     * 图片地址2
+     */
+    private String picture2;
+
+    /**
+     * 图片地址3
+     */
+    private String picture3;
+
+    /**
+     * 图片地址4
+     */
+    private String picture4;
+
+    /**
+     * 图片地址5
+     */
+    private String picture5;
+
+    /**
+     * 图片地址6
+     */
+    private String picture6;
 
     /**
      * 描述

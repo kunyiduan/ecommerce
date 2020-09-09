@@ -1,6 +1,6 @@
 package com.kunyiduan;
 
-public class ProductApiApplication {
+public class ProductApiMain {
 
     public static void main(String[] args) {
 
