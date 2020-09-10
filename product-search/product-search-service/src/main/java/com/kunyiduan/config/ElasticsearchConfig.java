@@ -9,7 +9,7 @@ import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfig
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
 @Configuration
-@EnableElasticsearchRepositories
+@EnableElasticsearchRepositories(basePackages = "com.kunyiduan")
 public class ElasticsearchConfig extends AbstractElasticsearchConfiguration {
 
     @Override
