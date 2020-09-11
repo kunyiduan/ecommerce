@@ -68,7 +68,7 @@ public class Brand implements Serializable {
     /**
      * 图片地址伪hash索引
      */
-    private Integer picCrc;
+    private Long picCrc;
 
     /**
      * 创建时间

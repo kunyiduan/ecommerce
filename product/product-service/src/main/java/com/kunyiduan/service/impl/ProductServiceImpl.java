@@ -30,8 +30,8 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
         Product product = new Product();
         BeanUtils.copyProperties(productParam,product);
         if(productParam.getPicture1()!=null){
-            //java hashCode可能为负数
-            product.setPic1Crc(Math.abs(productParam.getPicture1().hashCode()));
+            //java hashCode越界后将为负数，MySQL有crc32函数-unsigned int-字段类型
+            product.setPic1Crc((long) productParam.getPicture1().hashCode() + Integer.MAX_VALUE + 1);
         }
         product.setStatus(0);
         product.setCreateTime(new Date());

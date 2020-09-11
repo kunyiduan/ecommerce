@@ -86,7 +86,7 @@ public class Product implements Serializable {
     /**
      * 图片地址1伪hash索引
      */
-    private Integer pic1Crc;
+    private Long pic1Crc;
 
     /**
      * 图片地址2
