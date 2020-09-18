@@ -1,4 +1,4 @@
-package com.kunyiduan.mapper;
+package com.kunyiduan.mapper.product;
 
 import com.kunyiduan.entity.Product;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;

@@ -1,3 +1,4 @@
+create database brand;
 CREATE TABLE `brand` (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
     `name` VARCHAR(16) NOT NULL COMMENT '名字',
@@ -12,18 +13,9 @@ CREATE TABLE `brand` (
     `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
     CONSTRAINT pk_brand_id PRIMARY KEY (id)
 )  ENGINE=INNODB DEFAULT CHARSET=UTF8 COMMENT='品牌信息表';
-create index idx_brand_picCrc on brand(pic_crc);
+create index idx_brand_pic_crc on brand(pic_crc);
 
-CREATE TABLE `product_category` (
-    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
-    `first_classification` VARCHAR(16) NOT NULL COMMENT '商品一级分类',
-    `second_classification` VARCHAR(16) NOT NULL COMMENT '商品二级分类',
-    `third_classification` VARCHAR(16) NOT NULL COMMENT '商品三级分类',
-    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
-    CONSTRAINT pk_productCategory_id PRIMARY KEY (id)
-)  ENGINE=INNODB DEFAULT CHARSET=UTF8 COMMENT='商品分类信息表';
-
+create database product;
 CREATE TABLE `product` (
     `id` BIGINT NOT NULL COMMENT 'ID',
     `name` CHAR(10) NOT NULL COMMENT '名字',
@@ -47,4 +39,14 @@ CREATE TABLE `product` (
     `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
     CONSTRAINT pk_product_id PRIMARY KEY (id)
 )  ENGINE=INNODB DEFAULT CHARSET=UTF8 COMMENT='商品信息表';
-create index idx_product_pic1Crc on product(pic1_crc);
+create index idx_product_pic1_crc on product(pic1_crc);
+
+CREATE TABLE `product_category` (
+    `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
+    `first_classification` VARCHAR(16) NOT NULL COMMENT '商品一级分类',
+    `second_classification` VARCHAR(16) NOT NULL COMMENT '商品二级分类',
+    `third_classification` VARCHAR(16) NOT NULL COMMENT '商品三级分类',
+    `create_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    `update_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '更新时间',
+    CONSTRAINT pk_productCategory_id PRIMARY KEY (id)
+)  ENGINE=INNODB DEFAULT CHARSET=UTF8 COMMENT='商品分类信息表';

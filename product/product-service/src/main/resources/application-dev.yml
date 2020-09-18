@@ -1,9 +1,63 @@
 spring:
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost/product?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
-    username: root
-    password: '123456'
+    druid:
+      brand:
+        url: jdbc:mysql://localhost/brand?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: '123456'
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        #连接池相关信息，依据实际情况配置
+        #初始化连接大小:连接池建立时创建的初始化连接数
+        initial-size: 5
+        #最小空闲连接数:连接池中最小的活跃连接数
+        min-idle: 15
+        #最大连接数:连接池中最大的活跃连接数
+        max-active: 60
+        validation-query: SELECT 1
+        #获取连接时检测：是否在获得连接后检测其可用性
+        test-on-borrow: true
+        #空闲时检测：是否在连接空闲一段时间后检测其可用性
+        test-while-idle: true
+        #连接保持空闲而不被驱逐的最长时间
+        time-between-eviction-runs-millis: 60000
+      product:
+        url: jdbc:mysql://localhost/product?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+        username: root
+        password: '123456'
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        #连接池相关信息，依据实际情况配置
+        initial-size: 5
+        min-idle: 15
+        max-active: 60
+        validation-query: SELECT 1
+        test-on-borrow: true
+        test-while-idle: true
+        time-between-eviction-runs-millis: 60000
+      #合并多个数据源监控
+      use-global-data-source-stat: true
+      #配置druid显示监控统计信息，网址：http://localhost:8080/druid
+      #StatViewServlet配置
+      stat-view-servlet.enabled: true
+      stat-view-servlet.url-pattern: /druid/*
+      stat-view-servlet.reset-enable: false
+      stat-view-servlet.login-username: root
+      stat-view-servlet.login-password: 123456
+      #stat-view-servlet.allow:
+      #stat-view-servlet.deny:
+      #WebStatFilter配置
+      web-stat-filter.enabled: true
+      web-stat-filter.url-pattern: /*
+#      web-stat-filter.exclusions: *.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*
+      #web-stat-filter.session-stat-enable:
+      #web-stat-filter.session-stat-max-count:
+      #web-stat-filter.principal-session-name:
+      #web-stat-filter.principal-cookie-name:
+      #web-stat-filter.profile-enable:
+      #spring监控配置
+      #aop-patterns: #Spring监控aop切入点，如x.y.x.service.*,配置多个使用英文逗号分割
+  #spring boot 2.1兼容低版本配置，默认禁止bean覆盖
+  main:
+    allow-bean-definition-overriding: true
   redis:
     host: localhost
     port: 6379
@@ -18,13 +72,10 @@ spring:
 
 swagger:
   enabled: true
-  basic:
-    username: root
-    password: 123456
 
 logging:
   level:
-    root: info
+    root: debug
 
 eureka:
   client:

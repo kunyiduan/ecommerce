@@ -1,13 +1,13 @@
-package com.kunyiduan.mapper;
+package com.kunyiduan.mapper.product;
 
-import com.kunyiduan.entity.Brand;
+import com.kunyiduan.entity.ProductCategory;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
 /**
  * <p>
- *  Mapper 接口
+ * 商品分类信息表 Mapper 接口
  * </p>
  *
  * @author achilles
@@ -15,6 +15,6 @@ import org.springframework.stereotype.Repository;
  */
 @Mapper
 @Repository
-public interface BrandMapper extends BaseMapper<Brand> {
+public interface ProductCategoryMapper extends BaseMapper<ProductCategory> {
 
 }
