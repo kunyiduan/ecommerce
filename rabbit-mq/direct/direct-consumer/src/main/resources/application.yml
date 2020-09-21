@@ -1,0 +1,24 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: rabbit-mq
+  jackson:
+    time-zone: GMT+8
+  rabbitmq:
+    host: 10.13.3.120
+    port: 45762
+    username: admin
+    password: admin
+    listener:
+      simple:
+        retry:
+          enabled: true
+          max-attempts: 5
+
+mq:
+  config:
+    exchange:
+      direct:
+        name: direct.demo
