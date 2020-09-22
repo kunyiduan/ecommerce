@@ -17,11 +17,14 @@ public class sender {
     @Autowired
     private AmqpTemplate rabbitTemplate;
 
-    @Value("${mq.config.exchange.direct.name")
+    @Value("${mq.config.exchange")
     private String exchange;
 
     public void send() {
-        String msg = "send msg";
-        rabbitTemplate.convertAndSend(exchange, "direct.demo.routing.key", msg);
+        int i = 0;
+        while(true){
+            rabbitTemplate.convertAndSend(exchange, "direct.demo.routing.key", "send msg --- "+i);
+            i++;
+        }
     }
 }

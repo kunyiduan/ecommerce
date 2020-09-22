@@ -19,6 +19,4 @@ spring:
 
 mq:
   config:
-    exchange:
-      direct:
-        name: direct.demo
+    exchange: number.direct
