@@ -1,11 +1,10 @@
-package com.kunyiduan.fanout.provider;
+package com.kunyiduan;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
-
-import java.util.Date;
 
 /**
  * @author achilles
@@ -14,7 +13,8 @@ import java.util.Date;
  * @createTime 2020/09/21 14:41:00
  */
 @Component
-public class sender {
+@Slf4j
+public class FanoutSender {
 
     @Autowired
     private AmqpTemplate rabbitTemplate;
@@ -22,9 +22,13 @@ public class sender {
     @Value("${mq.config.exchange}")
     private String exchange;
 
-    public void send() throws InterruptedException{
-        String msg="hello"+new Date();
-        this.rabbitTemplate.convertAndSend(this.exchange,"", msg);
+    public void send() {
+        int i = 0;
+        while (true) {
+            rabbitTemplate.convertAndSend(exchange, "", i);
+            log.info(String.valueOf(i));
+            i++;
+        }
     }
 
 }

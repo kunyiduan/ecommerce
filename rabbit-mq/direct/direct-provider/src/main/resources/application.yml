@@ -3,14 +3,14 @@ server:
 
 spring:
   application:
-    name: rabbit-mq
+    name: direct-provider
   jackson:
     time-zone: GMT+8
   rabbitmq:
     host: 10.13.3.120
-    port: 45762
-    username: admin
-    password: admin
+    port: 45672
+    username: kunyiduan
+    password: 123456
     listener:
       simple:
         retry:
@@ -19,4 +19,8 @@ spring:
 
 mq:
   config:
-    exchange: number.direct
+    exchange: time.direct
+
+logging:
+  level:
+    root: info

@@ -1,9 +1,9 @@
 server:
-  port: 8080
+  port: 8084
 
 spring:
   application:
-    name: direct-consumer
+    name: topic-consumer
   jackson:
     time-zone: GMT+8
   rabbitmq:
@@ -19,12 +19,10 @@ spring:
 
 mq:
   config:
-    exchange: time.direct
+    exchange: number.topic
     queue:
-      number:
-        name: increment.time
-        routing:
-          key: increment.time.routing.key
+      odd: number.odd
+      even: number.even
 
 logging:
   level:

@@ -1,14 +1,14 @@
 server:
-  port: 8080
+  port: 8083
 
 spring:
   application:
-    name: direct-consumer
+    name: fanout-provider
   jackson:
     time-zone: GMT+8
   rabbitmq:
     host: 10.13.3.120
-    port: 45672
+    port: 5672
     username: kunyiduan
     password: 123456
     listener:
@@ -19,12 +19,7 @@ spring:
 
 mq:
   config:
-    exchange: time.direct
-    queue:
-      number:
-        name: increment.time
-        routing:
-          key: increment.time.routing.key
+    exchange: number.fanout
 
 logging:
   level:
