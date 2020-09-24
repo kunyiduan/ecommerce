@@ -1,5 +1,6 @@
 package com.kunyiduan.service.impl;
 
+import com.baomidou.dynamic.datasource.annotation.DS;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kunyiduan.bean.product.ProductParam;
 import com.kunyiduan.entity.Product;
@@ -28,6 +29,7 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     private ProductMapper productMapper;
 
     @Override
+//    @DS("ProductDataSource")
 //    @Transactional(rollbackFor = RuntimeException.class, transactionManager = "productTransactionManager")
     public boolean insertProduct(ProductParam productParam) {
         Product product = new Product();

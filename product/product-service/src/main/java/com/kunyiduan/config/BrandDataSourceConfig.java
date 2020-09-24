@@ -1,5 +1,6 @@
 package com.kunyiduan.config;
 
+import com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -37,9 +38,10 @@ public class BrandDataSourceConfig {
     /**
      * 配置SQL Session工厂
      */
-    @Bean
+    @Bean(name = "brandSqlSessionFactory")
     public SqlSessionFactory brandSqlSessionFactory() throws Exception {
-        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+//        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
+        MybatisSqlSessionFactoryBean factoryBean = new MybatisSqlSessionFactoryBean();
         factoryBean.setDataSource(brandDataSource);
         //指定XML文件路径
         factoryBean.setMapperLocations(new PathMatchingResourcePatternResolver().getResources(MAPPER_XML_LOCATION));
