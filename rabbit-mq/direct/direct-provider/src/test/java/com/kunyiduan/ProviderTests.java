@@ -15,7 +15,9 @@ public class ProviderTests {
 
     @Test
     public void testSend(){
-        sender.send();
+        for(int i = 0;i<9999;i++){
+            sender.send();
+        }
     }
 
 }

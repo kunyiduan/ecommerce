@@ -21,7 +21,7 @@ mq:
   config:
     exchange: time.direct
     queue:
-      number:
+      time:
         name: increment.time
         routing:
           key: increment.time.routing.key

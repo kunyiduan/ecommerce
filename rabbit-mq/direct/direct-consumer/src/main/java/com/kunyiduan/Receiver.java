@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
  * @createTime 2020/09/21 10:22:00
  */
 @Component
-@RabbitListener(bindings = @QueueBinding(value = @Queue(value = "${mq.config.queue.time.name}", autoDelete = "true"),
+@RabbitListener(bindings = @QueueBinding(value = @Queue(value = "${mq.config.queue.time.name}", autoDelete = "false"),
         exchange = @Exchange(value = "${mq.config.exchange}", type = ExchangeTypes.DIRECT),
         key = "${mq.config.queue.time.routing.key}"))
 @Slf4j
@@ -20,7 +20,7 @@ public class Receiver {
 
     @RabbitHandler
     public void process(String msg) throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(20);
         log.info("the message is " + msg);
     }
 

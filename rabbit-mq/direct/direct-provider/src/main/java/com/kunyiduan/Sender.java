@@ -23,8 +23,6 @@ public class Sender {
     private String exchange;
 
     public void send() {
-        while(true){
-            rabbitTemplate.convertAndSend(this.exchange, "increment.time.routing.key", "msg " + LocalTime.now());
-        }
+        rabbitTemplate.convertAndSend(this.exchange, "increment.time.routing.key", "msg " + LocalTime.now());
     }
 }
