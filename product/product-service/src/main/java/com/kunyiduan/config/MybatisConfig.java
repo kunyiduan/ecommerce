@@ -12,7 +12,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableConfigurationProperties
-@EnableTransactionManagement(proxyTargetClass = true)
+@EnableTransactionManagement(proxyTargetClass = true)//开启事务
 public class MybatisConfig {
 
     /**
@@ -31,8 +31,8 @@ public class MybatisConfig {
      *
      * @return the data source
      */
-    @Bean(name = "BrandDataSource")
-    @ConfigurationProperties(prefix = BRAND_PREFIX)  // application.properties中对应属性的前缀
+    @Bean(name = "brandDataSource")
+    @ConfigurationProperties(prefix = BRAND_PREFIX)
     public DataSource brandDataSource() {
         return DruidDataSourceBuilder.create().build();
     }
@@ -42,8 +42,8 @@ public class MybatisConfig {
      *
      * @return the data source
      */
-    @Bean(name = "ProductDataSource")
-    @ConfigurationProperties(prefix = PRODUCT_PREFIX)  // application.properties中对应属性的前缀
+    @Bean(name = "productDataSource")
+    @ConfigurationProperties(prefix = PRODUCT_PREFIX)
     public DataSource productDataSource() {
         return DruidDataSourceBuilder.create().build();
     }

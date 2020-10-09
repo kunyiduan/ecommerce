@@ -3,6 +3,7 @@ package com.kunyiduan.mapper.brand;
 import com.kunyiduan.entity.Brand;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 /**

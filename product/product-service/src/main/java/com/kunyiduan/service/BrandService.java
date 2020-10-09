@@ -1,5 +1,6 @@
 package com.kunyiduan.service;
 
+import com.kunyiduan.bean.brand.BrandParam;
 import com.kunyiduan.entity.Brand;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,4 +14,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface BrandService extends IService<Brand> {
 
+    boolean createBrand(BrandParam brandParam);
 }

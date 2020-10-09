@@ -1,5 +1,10 @@
 spring:
+#  aop:
+#    proxy-target-class: true
+#    auto: true
   datasource:
+    name: druid
+      type: com.alibaba.druid.pool.DruidDataSource
     druid:
       brand:
         url: jdbc:mysql://localhost/brand?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
@@ -56,8 +61,8 @@ spring:
       #spring监控配置
       #aop-patterns: #Spring监控aop切入点，如x.y.x.service.*,配置多个使用英文逗号分割
   #spring boot 2.1兼容低版本配置，默认禁止bean覆盖
-  main:
-    allow-bean-definition-overriding: true
+    main:
+      allow-bean-definition-overriding: true
   redis:
     host: localhost
     port: 6379

@@ -2,7 +2,7 @@ create database brand;
 CREATE TABLE `brand` (
     `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
     `name` VARCHAR(16) NOT NULL COMMENT '名字',
-    `telephone` CHAR(12) NOT NULL COMMENT '联系方式',
+    `landline` CHAR(13) NOT NULL COMMENT '座机——格式：0871-68853365',
     `country` VARCHAR(16) NOT NULL COMMENT '国家',
     `province` VARCHAR(16) NOT NULL COMMENT '省份',
     `city` VARCHAR(16) NOT NULL COMMENT '城市',

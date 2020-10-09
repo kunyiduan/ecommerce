@@ -7,11 +7,13 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
+import javax.annotation.Resource;
 import javax.sql.DataSource;
 
 @Configuration
@@ -21,24 +23,24 @@ public class BrandDataSourceConfig {
     /**
      * mybatis的xml文件.
      */
-    public static final String MAPPER_XML_LOCATION = "classpath:mapper/brand/*.xml";
+    public static final String MAPPER_XML_LOCATION = "classpath*:mapper/brand/*.xml";
 
     @Autowired
-    @Qualifier("BrandDataSource")
+    @Qualifier("brandDataSource")
     DataSource brandDataSource;
 
     /**
      * 配置Sql Session模板
      */
     @Bean
-    public SqlSessionTemplate springSqlSessionTemplate() throws Exception {
+    public SqlSessionTemplate brandSqlSessionTemplate() throws Exception {
         return new SqlSessionTemplate(brandSqlSessionFactory());
     }
 
     /**
      * 配置SQL Session工厂
      */
-    @Bean(name = "brandSqlSessionFactory")
+    @Bean
     public SqlSessionFactory brandSqlSessionFactory() throws Exception {
 //        SqlSessionFactoryBean factoryBean = new SqlSessionFactoryBean();
         MybatisSqlSessionFactoryBean factoryBean = new MybatisSqlSessionFactoryBean();

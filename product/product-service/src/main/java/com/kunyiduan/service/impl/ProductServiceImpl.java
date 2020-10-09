@@ -8,11 +8,11 @@ import com.kunyiduan.mapper.product.ProductMapper;
 import com.kunyiduan.service.ProductService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -29,18 +29,18 @@ public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> impl
     private ProductMapper productMapper;
 
     @Override
-//    @DS("ProductDataSource")
+    @DS("productDataSource")
 //    @Transactional(rollbackFor = RuntimeException.class, transactionManager = "productTransactionManager")
     public boolean insertProduct(ProductParam productParam) {
         Product product = new Product();
         BeanUtils.copyProperties(productParam, product);
-        if (productParam.getPicture1() != null) {
+        if (!StringUtils.isEmpty(productParam.getPicture1())) {
             //java hashCode越界后将为负数，MySQL有crc32函数-unsigned int-字段类型
             product.setPic1Crc((long) productParam.getPicture1().hashCode() + Integer.MAX_VALUE + 1);
         }
         product.setStatus(0);
-        product.setCreateTime(new Date());
-        product.setUpdateTime(new Date());
+        product.setCreateTime(LocalDateTime.now());
+        product.setUpdateTime(LocalDateTime.now());
         final int count = productMapper.insert(product);
         return count == 1 ? true : false;
     }
