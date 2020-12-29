@@ -9,6 +9,7 @@ import com.kunyiduan.service.BrandService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
@@ -23,14 +24,14 @@ import java.time.LocalDateTime;
  * @since 2020-09-07
  */
 @Service
+@DS("brand")
 public class BrandServiceImpl extends ServiceImpl<BrandMapper, Brand> implements BrandService {
 
     @Autowired
     private BrandMapper brandMapper;
 
     @Override
-//    @DS("brandDataSource")
-    @Transactional(rollbackFor = RuntimeException.class, transactionManager = "brandTransactionManager")
+//    @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = RuntimeException.class, transactionManager = "brandTransactionManager")
     public boolean createBrand(BrandParam brandParam) {
         Brand brand = new Brand();
         BeanUtils.copyProperties(brandParam, brand);

@@ -1,7 +1,7 @@
 package com.kunyiduan.mapper.product;
 
-import com.kunyiduan.entity.Product;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.kunyiduan.entity.Product;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 

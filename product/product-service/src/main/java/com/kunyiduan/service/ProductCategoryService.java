@@ -1,7 +1,7 @@
 package com.kunyiduan.service;
 
-import com.kunyiduan.entity.ProductCategory;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.kunyiduan.entity.ProductCategory;
 
 /**
  * <p>

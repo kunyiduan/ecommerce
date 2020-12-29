@@ -9,7 +9,6 @@ import com.kunyiduan.service.ProductService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.time.LocalDateTime;
@@ -23,14 +22,14 @@ import java.time.LocalDateTime;
  * @since 2020-07-13
  */
 @Service
+@DS("product")
 public class ProductServiceImpl extends ServiceImpl<ProductMapper, Product> implements ProductService {
 
     @Autowired
     private ProductMapper productMapper;
 
     @Override
-    @DS("productDataSource")
-//    @Transactional(rollbackFor = RuntimeException.class, transactionManager = "productTransactionManager")
+//    @Transactional(propagation = Propagation.REQUIRES_NEW,rollbackFor = RuntimeException.class, transactionManager = "productTransactionManager")
     public boolean insertProduct(ProductParam productParam) {
         Product product = new Product();
         BeanUtils.copyProperties(productParam, product);

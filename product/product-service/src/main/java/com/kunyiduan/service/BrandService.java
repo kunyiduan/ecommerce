@@ -1,8 +1,8 @@
 package com.kunyiduan.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.kunyiduan.bean.brand.BrandParam;
 import com.kunyiduan.entity.Brand;
-import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>

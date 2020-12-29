@@ -1,9 +1,9 @@
 package com.kunyiduan.service.impl;
 
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.kunyiduan.entity.ProductCategory;
 import com.kunyiduan.mapper.product.ProductCategoryMapper;
 import com.kunyiduan.service.ProductCategoryService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
 /**
