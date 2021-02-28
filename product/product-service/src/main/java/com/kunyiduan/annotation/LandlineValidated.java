@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * @Description TODO
  * @createTime 2020/10/09 09:36:00
  */
-public class LandlineValidated implements ConstraintValidator<Landline,String> {
+public class LandlineValidated implements ConstraintValidator<Landline, String> {
 
     private static final Pattern LANDLINE_PATTERN = Pattern.compile(
             "^\\d{4}-\\d{8}$"

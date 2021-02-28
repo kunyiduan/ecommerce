@@ -17,7 +17,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                 //普通的接口不需要校验
-                .antMatchers("/product/**","/brand/**").permitAll()
+                .antMatchers("/product/**", "/brand/**").permitAll()
                 // swagger页面需要添加登录校验
                 .antMatchers("/swagger-ui.html").authenticated()
                 .and()

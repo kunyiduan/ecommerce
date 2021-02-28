@@ -34,12 +34,11 @@ public class ProductController {
     @PostMapping("/create")
     public boolean createProduct(@Validated @RequestBody ProductParam productParam) {
         final boolean result = productService.insertProduct(productParam);
-        if(log.isDebugEnabled()){
+        if (log.isDebugEnabled()) {
             log.debug("result of the createProduct is ------------" + result);
         }
         return result;
     }
-
 
 
 }

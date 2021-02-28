@@ -6,7 +6,7 @@ import com.kunyiduan.entity.Brand;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author achilles
