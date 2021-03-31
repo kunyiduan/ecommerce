@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
  * @createTime 2020/09/22 15:14:00
  */
 @Component
-public class PositiveNumberSender{
+public class PositiveNumberSender {
 
     @Autowired
     private AmqpTemplate rabbitTemplate;
@@ -23,7 +23,7 @@ public class PositiveNumberSender{
 
     public void send() throws InterruptedException {
         int i = 0;
-        while (i<99999) {
+        while (i < 99999) {
             i++;
             if (i % 2 == 0) {
                 rabbitTemplate.convertAndSend(exchange, "positive.number.odd", i);

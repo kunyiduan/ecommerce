@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 @RequestMapping("/points")
-@Api(description = "积分",tags = {"points"})
+@Api(description = "积分", tags = {"points"})
 public class PointsController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class PointsController {
 
     @ApiOperation("添加积分")
     @PostMapping("/create")
-    public Boolean create(@RequestBody @Validated PointsParam pointsParam){
+    public Boolean create(@RequestBody @Validated PointsParam pointsParam) {
         Boolean flag = pointsService.create(pointsParam);
         return flag;
     }

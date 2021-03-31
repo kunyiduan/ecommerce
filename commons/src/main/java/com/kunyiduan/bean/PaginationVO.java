@@ -11,20 +11,20 @@ import javax.validation.constraints.Min;
 @Data
 public class PaginationVO {
 
-  /**
-   * 页数
-   */
-  @ApiModelProperty(value = "页数")
-  @Range
-  @Min(value = 0)
-  private Integer page = 0;
+    /**
+     * 页数
+     */
+    @ApiModelProperty(value = "页数")
+    @Range
+    @Min(value = 0)
+    private Integer page = 0;
 
-  /**
-   * 页数大小
-   */
-  @ApiModelProperty(value = "页码")
-  @Min(value = 0)
-  private Integer pageSize = 10 ;
+    /**
+     * 页数大小
+     */
+    @ApiModelProperty(value = "页码")
+    @Min(value = 0)
+    private Integer pageSize = 10;
 
 }
 //  @NotNull 	任何类型 	属性不能为null

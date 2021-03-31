@@ -14,7 +14,7 @@ public class FanoutProviderTests {
     private FanoutSender fanoutSender;
 
     @Test
-    public void testSend(){
+    public void testSend() {
         fanoutSender.send();
     }
 

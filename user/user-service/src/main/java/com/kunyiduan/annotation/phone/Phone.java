@@ -6,7 +6,7 @@ import java.lang.annotation.*;
 
 @Documented
 //声明该注解只允许用在类的字段上
-@Target({ ElementType.FIELD})
+@Target({ElementType.FIELD})
 //声明注解保留在程序运行期间，可以通过反射获取定义在某个类上的所有注解
 @Retention(RetentionPolicy.RUNTIME)
 //指定注解的实现类
@@ -16,9 +16,9 @@ public @interface Phone {
     //校验失败时返回信息
     String message() default "手机号码错误";
 
-    Class<?>[] groups() default { };
+    Class<?>[] groups() default {};
 
-    Class<? extends Payload>[] payload() default { };
+    Class<? extends Payload>[] payload() default {};
 
     @Target({ElementType.METHOD, ElementType.FIELD, ElementType.ANNOTATION_TYPE, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.TYPE_USE})
     @Retention(RetentionPolicy.RUNTIME)

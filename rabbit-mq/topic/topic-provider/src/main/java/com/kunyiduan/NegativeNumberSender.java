@@ -22,7 +22,7 @@ public class NegativeNumberSender {
 
     public void send() throws InterruptedException {
         int i = 0;
-        while (i>-99999) {
+        while (i > -99999) {
             i--;
             if (i % 2 == 0) {
                 rabbitTemplate.convertAndSend(exchange, "negative.number.odd", i);

@@ -71,7 +71,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Transactional(rollbackFor = RuntimeException.class)
     public boolean register(RegisterParam registerParam) {
         User user = new User();
-        BeanUtils.copyProperties(registerParam,user);
+        BeanUtils.copyProperties(registerParam, user);
         String originalPassword = AESUtil.decrypt(registerParam.getPassword());
         user.setPassword(encryptUtil.encryptSha1(originalPassword));
         Date date = new Date();
@@ -81,7 +81,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         //注册成功，送100积分--异步调用
         UserBO userBO = this.getUserByPhone(registerParam.getTelephone());
         log.debug(userBO.toString());
-        PointsParam pointsParam = new PointsParam(Long.parseLong(userBO.getId()),100);
+        PointsParam pointsParam = new PointsParam(Long.parseLong(userBO.getId()), 100);
         pointsFeignClient.create(pointsParam);
         return count == 1 ? true : false;
     }
@@ -89,16 +89,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public String login(LoginPhoneParam loginPhoneParam) {
         UserBO userBO = this.getUserByPhone(loginPhoneParam.getTelephone());
-        if(userBO != null){
+        if (userBO != null) {
             String originalPassword = AESUtil.decrypt(loginPhoneParam.getPassword());
             String encryptionPassword = encryptUtil.encryptSha1(originalPassword);
-            if(userBO.getPassword().equals(encryptionPassword)){
-                String token = jwtUtil.sign(userBO.getId(),userBO.getTelephone());
+            if (userBO.getPassword().equals(encryptionPassword)) {
+                String token = jwtUtil.sign(userBO.getId(), userBO.getTelephone());
                 return token;
-            }else {
+            } else {
                 throw new BusinessException(ResultCode.USER_PASSWORD_ERROR);
             }
-        }else {
+        } else {
             throw new BusinessException(ResultCode.USER_TELEPHONE_ERROR);
         }
     }
@@ -108,7 +108,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         String telephone = jwtUtil.getTelephone(token);
         UserBO userBO = this.getUserByPhone(telephone);
         UserInfoVO userInfoVO = new UserInfoVO();
-        BeanUtils.copyProperties(userBO,userInfoVO);
+        BeanUtils.copyProperties(userBO, userInfoVO);
         return userInfoVO;
     }
 
@@ -118,18 +118,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         UserBO userBO = this.getUserByPhone(telephone);
         String currentOriginalPassword = AESUtil.decrypt(currentPassword);
         String currentEncryptionPassword = encryptUtil.encryptSha1(currentOriginalPassword);
-        if(!ObjectUtils.isEmpty(userBO)){
-            if(userBO.getPassword().equals(currentEncryptionPassword)){
+        if (!ObjectUtils.isEmpty(userBO)) {
+            if (userBO.getPassword().equals(currentEncryptionPassword)) {
                 String newOriginalPassword = AESUtil.decrypt(newPassword);
                 String newEncryptionPassword = encryptUtil.encryptSha1(newOriginalPassword);
                 LambdaUpdateWrapper<User> updateWrapper = Wrappers.lambdaUpdate();
                 Date date = new Date();
-                updateWrapper.set(User::getPassword,newEncryptionPassword)
-                             .set(User::getUpdateTime,date)
-                             .eq(User::getTelephone,telephone);
-                userMapper.update(null,updateWrapper);
+                updateWrapper.set(User::getPassword, newEncryptionPassword)
+                        .set(User::getUpdateTime, date)
+                        .eq(User::getTelephone, telephone);
+                userMapper.update(null, updateWrapper);
                 redisTemplate.delete(ConstantUtil.USER_TELEPHONE.concat(telephone));
-            }else {
+            } else {
                 throw new BusinessException(ResultCode.USER_PASSWORD_ERROR);
             }
         }
@@ -145,7 +145,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public UserBO getUserByPhone(String telephone) {
         UserBO userBO = new UserBO();
-        if(redisTemplate.hasKey(ConstantUtil.USER_TELEPHONE.concat(telephone))){
+        if (redisTemplate.hasKey(ConstantUtil.USER_TELEPHONE.concat(telephone))) {
             Map userEntries = redisTemplate.boundHashOps(ConstantUtil.USER_TELEPHONE.concat(telephone)).entries();
             userBO.setId(String.valueOf(userEntries.get("id")));
             userBO.setBirthday((Date) userEntries.get("birthday"));
@@ -154,24 +154,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             userBO.setPassword(String.valueOf(userEntries.get("password")));
             userBO.setPhoto(String.valueOf(userEntries.get("photo")));
             userBO.setTelephone(String.valueOf(userEntries.get("telephone")));
-        }else {
+        } else {
             LambdaQueryWrapper<User> queryWrapper = Wrappers.lambdaQuery();
-            queryWrapper.eq(User::getTelephone,telephone).eq(User::getStatus,1);
+            queryWrapper.eq(User::getTelephone, telephone).eq(User::getStatus, 1);
             User user = userMapper.selectOne(queryWrapper);
 
-            Map<String,Object> userMap = new HashMap<>(8);
-            userMap.put("id",user.getId());
-            userMap.put("telephone",user.getTelephone());
-            userMap.put("nickName",user.getNickName());
-            userMap.put("photo",user.getPhoto());
-            userMap.put("password",user.getPassword());
-            userMap.put("email",user.getEmail());
-            userMap.put("birthday",user.getBirthday());
-            redisTemplate.opsForHash().putAll(ConstantUtil.USER_TELEPHONE.concat(telephone),userMap);
+            Map<String, Object> userMap = new HashMap<>(8);
+            userMap.put("id", user.getId());
+            userMap.put("telephone", user.getTelephone());
+            userMap.put("nickName", user.getNickName());
+            userMap.put("photo", user.getPhoto());
+            userMap.put("password", user.getPassword());
+            userMap.put("email", user.getEmail());
+            userMap.put("birthday", user.getBirthday());
+            redisTemplate.opsForHash().putAll(ConstantUtil.USER_TELEPHONE.concat(telephone), userMap);
             //用户信息缓存设置5-6天过期策略-缓存雪崩；用户不活跃，缓存失效，避免用户信息永久存储与redis
-            redisTemplate.expire(ConstantUtil.USER_TELEPHONE.concat(telephone),new Random().nextInt(24*60*60)+useRedisExpiredTime, TimeUnit.SECONDS);
+            redisTemplate.expire(ConstantUtil.USER_TELEPHONE.concat(telephone), new Random().nextInt(24 * 60 * 60) + useRedisExpiredTime, TimeUnit.SECONDS);
 
-            BeanUtils.copyProperties(user,userBO);
+            BeanUtils.copyProperties(user, userBO);
         }
         return userBO;
     }

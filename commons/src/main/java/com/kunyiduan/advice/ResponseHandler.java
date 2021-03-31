@@ -29,14 +29,13 @@ public class ResponseHandler implements ResponseBodyAdvice<Object> {
     }
 
     /**
-     *
      * 处理response的具体业务方法
      */
     @Override
     public Object beforeBodyWrite(Object o, MethodParameter methodParameter, MediaType mediaType, Class<? extends HttpMessageConverter<?>> aClass, ServerHttpRequest serverHttpRequest, ServerHttpResponse serverHttpResponse) {
         if (o instanceof ErrorResult) {
             ErrorResult errorResult = (ErrorResult) o;
-            return Result.fail(errorResult.getStatus(),errorResult.getMessage());
+            return Result.fail(errorResult.getStatus(), errorResult.getMessage());
         } else if (o instanceof String) {
             return JsonUtil.object2Json(Result.suc(o));
         }

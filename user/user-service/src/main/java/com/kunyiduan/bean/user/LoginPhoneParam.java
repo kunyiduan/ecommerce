@@ -17,12 +17,12 @@ import org.hibernate.validator.constraints.Length;
 @NoArgsConstructor
 public class LoginPhoneParam {
 
-    @ApiModelProperty(required = true,position = 1,value = "手机号")
+    @ApiModelProperty(required = true, position = 1, value = "手机号")
     @Phone
     private String telephone;
 
-    @ApiModelProperty(required = true,position = 2,value = "密码")
-    @Length(min = 64,max = 64,message = "密码加密错误")
+    @ApiModelProperty(required = true, position = 2, value = "密码")
+    @Length(min = 64, max = 64, message = "密码加密错误")
     private String password;
 
 }

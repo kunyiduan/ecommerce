@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 public class OddNumberReceiver {
 
     @RabbitHandler
-    public void process(Integer msg){
+    public void process(Integer msg) {
         if (msg % 2 != 0) {
             log.info("OddNumberReceiver -------" + msg);
         }

@@ -36,7 +36,7 @@ public class RegisterParam {
     @ApiModelProperty(required = false, position = 5, value = "头像")
     private String photo;
 
-    @ApiModelProperty(required = false, position = 6, value = "生日", dataType = "date",example = "2020-07-20")
+    @ApiModelProperty(required = false, position = 6, value = "生日", dataType = "date", example = "2020-07-20")
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date birthday;
 

@@ -14,8 +14,10 @@ public class ProviderTests {
     private Sender sender;
 
     @Test
-    public void testSend(){
-        for(int i = 0;i<9999;i++){
+    public void testSend() {
+        String a = "";
+        a.hashCode();
+        for (int i = 0; i < 9999; i++) {
             sender.send();
         }
     }

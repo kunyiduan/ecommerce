@@ -23,107 +23,107 @@ import java.util.List;
 @ConfigurationProperties(prefix = "http", ignoreUnknownFields = true)
 public class HttpClientConfig {
 
-  private Integer maxTotal;// 最大连接
+    private Integer maxTotal;// 最大连接
 
-  private Integer defaultMaxPerRoute;// 每个host的最大连接
+    private Integer defaultMaxPerRoute;// 每个host的最大连接
 
-  private Integer connectTimeout;// 连接超时时间
+    private Integer connectTimeout;// 连接超时时间
 
-  private Integer connectionRequestTimeout;// 请求超时时间
+    private Integer connectionRequestTimeout;// 请求超时时间
 
-  private Integer socketTimeout;// 响应超时时间
+    private Integer socketTimeout;// 响应超时时间
 
-  /**
-   * HttpClient连接池
-   */
-  @Bean
-  public HttpClientConnectionManager httpClientConnectionManager() {
-    PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
-    connectionManager.setMaxTotal(maxTotal);
-    connectionManager.setDefaultMaxPerRoute(defaultMaxPerRoute);
-    return connectionManager;
-  }
-
-  /**
-   * 注册RequestConfig
-   */
-  @Bean
-  public RequestConfig requestConfig() {
-    return RequestConfig.custom().setConnectTimeout(connectTimeout)
-        .setConnectionRequestTimeout(connectionRequestTimeout).setSocketTimeout(socketTimeout)
-        .build();
-  }
-
-  /**
-   * 注册HttpClient
-   */
-  @Bean
-  public HttpClient httpClient(HttpClientConnectionManager manager, RequestConfig config) {
-    return HttpClientBuilder.create().setConnectionManager(manager).setDefaultRequestConfig(config)
-        .build();
-  }
-
-  /**
-   * 使用连接池管理连接
-   */
-  @Bean
-  public ClientHttpRequestFactory requestFactory(HttpClient httpClient) {
-    return new HttpComponentsClientHttpRequestFactory(httpClient);
-  }
-
-  /**
-   * 使用HttpClient来初始化一个RestTemplate
-   */
-  @Bean
-  public RestTemplate restTemplate(ClientHttpRequestFactory requestFactory) {
-    RestTemplate template = new RestTemplate(requestFactory);
-
-    List<HttpMessageConverter<?>> list = template.getMessageConverters();
-    for (HttpMessageConverter<?> mc : list) {
-      if (mc instanceof StringHttpMessageConverter) {
-        ((StringHttpMessageConverter) mc).setDefaultCharset(Charset.forName("UTF-8"));
-      }
+    /**
+     * HttpClient连接池
+     */
+    @Bean
+    public HttpClientConnectionManager httpClientConnectionManager() {
+        PoolingHttpClientConnectionManager connectionManager = new PoolingHttpClientConnectionManager();
+        connectionManager.setMaxTotal(maxTotal);
+        connectionManager.setDefaultMaxPerRoute(defaultMaxPerRoute);
+        return connectionManager;
     }
-    return template;
-  }
 
-  public Integer getMaxTotal() {
-    return maxTotal;
-  }
+    /**
+     * 注册RequestConfig
+     */
+    @Bean
+    public RequestConfig requestConfig() {
+        return RequestConfig.custom().setConnectTimeout(connectTimeout)
+                .setConnectionRequestTimeout(connectionRequestTimeout).setSocketTimeout(socketTimeout)
+                .build();
+    }
 
-  public void setMaxTotal(Integer maxTotal) {
-    this.maxTotal = maxTotal;
-  }
+    /**
+     * 注册HttpClient
+     */
+    @Bean
+    public HttpClient httpClient(HttpClientConnectionManager manager, RequestConfig config) {
+        return HttpClientBuilder.create().setConnectionManager(manager).setDefaultRequestConfig(config)
+                .build();
+    }
 
-  public Integer getDefaultMaxPerRoute() {
-    return defaultMaxPerRoute;
-  }
+    /**
+     * 使用连接池管理连接
+     */
+    @Bean
+    public ClientHttpRequestFactory requestFactory(HttpClient httpClient) {
+        return new HttpComponentsClientHttpRequestFactory(httpClient);
+    }
 
-  public void setDefaultMaxPerRoute(Integer defaultMaxPerRoute) {
-    this.defaultMaxPerRoute = defaultMaxPerRoute;
-  }
+    /**
+     * 使用HttpClient来初始化一个RestTemplate
+     */
+    @Bean
+    public RestTemplate restTemplate(ClientHttpRequestFactory requestFactory) {
+        RestTemplate template = new RestTemplate(requestFactory);
 
-  public Integer getConnectTimeout() {
-    return connectTimeout;
-  }
+        List<HttpMessageConverter<?>> list = template.getMessageConverters();
+        for (HttpMessageConverter<?> mc : list) {
+            if (mc instanceof StringHttpMessageConverter) {
+                ((StringHttpMessageConverter) mc).setDefaultCharset(Charset.forName("UTF-8"));
+            }
+        }
+        return template;
+    }
 
-  public void setConnectTimeout(Integer connectTimeout) {
-    this.connectTimeout = connectTimeout;
-  }
+    public Integer getMaxTotal() {
+        return maxTotal;
+    }
 
-  public Integer getConnectionRequestTimeout() {
-    return connectionRequestTimeout;
-  }
+    public void setMaxTotal(Integer maxTotal) {
+        this.maxTotal = maxTotal;
+    }
 
-  public void setConnectionRequestTimeout(Integer connectionRequestTimeout) {
-    this.connectionRequestTimeout = connectionRequestTimeout;
-  }
+    public Integer getDefaultMaxPerRoute() {
+        return defaultMaxPerRoute;
+    }
 
-  public Integer getSocketTimeout() {
-    return socketTimeout;
-  }
+    public void setDefaultMaxPerRoute(Integer defaultMaxPerRoute) {
+        this.defaultMaxPerRoute = defaultMaxPerRoute;
+    }
 
-  public void setSocketTimeout(Integer socketTimeout) {
-    this.socketTimeout = socketTimeout;
-  }
+    public Integer getConnectTimeout() {
+        return connectTimeout;
+    }
+
+    public void setConnectTimeout(Integer connectTimeout) {
+        this.connectTimeout = connectTimeout;
+    }
+
+    public Integer getConnectionRequestTimeout() {
+        return connectionRequestTimeout;
+    }
+
+    public void setConnectionRequestTimeout(Integer connectionRequestTimeout) {
+        this.connectionRequestTimeout = connectionRequestTimeout;
+    }
+
+    public Integer getSocketTimeout() {
+        return socketTimeout;
+    }
+
+    public void setSocketTimeout(Integer socketTimeout) {
+        this.socketTimeout = socketTimeout;
+    }
 }

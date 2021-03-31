@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
     <contextName>${HOSTNAME}</contextName>
-    <property name="LOG_PATH" value="phantom-log" />
-    <springProperty scope="context" name="appName" source="spring.application.name" />
-    <springProperty scope="context" name="ip" source="server.port" />
+    <property name="LOG_PATH" value="phantom-log"/>
+    <springProperty scope="context" name="appName" source="spring.application.name"/>
+    <springProperty scope="context" name="ip" source="server.port"/>
     <springProperty scope="context" name="profile" source="spring.profiles.active"/>
     <property name="CONSOLE_LOG_PATTERN"
               value="%d{yyyy-MM-dd HH:mm:ss.SSS} ${HOSTNAME} ${ip} ${appName} ${profile} [%thread] %-5level %logger{36} - %msg%n"/>

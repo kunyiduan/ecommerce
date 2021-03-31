@@ -27,7 +27,7 @@ public class SearchDO implements Serializable {
     @Id
     private Long id;
 
-    @Field(type = FieldType.Text,analyzer = "ik_max_word")
+    @Field(type = FieldType.Text, analyzer = "ik_max_word")
     private String productName;
 
 }

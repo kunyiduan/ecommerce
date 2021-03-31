@@ -17,15 +17,17 @@ public class AESUtil {
 
     /**
      * 加密
+     *
      * @param str
      * @return
      */
-    public String encrypt(String str){
+    public String encrypt(String str) {
         return Encryptors.text(secret, slat).encrypt(str);
     }
 
     /**
      * 解密
+     *
      * @param str
      * @return
      */

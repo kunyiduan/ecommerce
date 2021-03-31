@@ -33,7 +33,7 @@ public class PointsServiceImpl extends ServiceImpl<PointsMapper, Points> impleme
     @Async("pointsPool")
     public Boolean create(PointsParam pointsParam) {
         Points points = new Points();
-        BeanUtils.copyProperties(pointsParam,points);
+        BeanUtils.copyProperties(pointsParam, points);
         Date date = new Date();
         points.setCreateTime(date);
         points.setUpdateTime(date);

@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/message")
-@Api(description = "短信",tags = {"message"})
+@Api(description = "短信", tags = {"message"})
 public class MessageController {
 
 }

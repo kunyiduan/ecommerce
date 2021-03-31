@@ -20,7 +20,7 @@ spring:
 #      repositories:
 #        enabled: true
 
-cluster
+  cluster
 swagger:
   enabled: true
   basic:

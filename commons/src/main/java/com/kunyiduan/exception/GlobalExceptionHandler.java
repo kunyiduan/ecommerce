@@ -58,8 +58,8 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     @ExceptionHandler(Throwable.class)
     public ErrorResult handleThrowable(Throwable e, HttpServletRequest request) {
-        ErrorResult error =ErrorResult.fail(ResultCode.SYSTEM_ERROR, e);
-        log.error("URL:{} ,系统异常: ",request.getRequestURI(), e);
+        ErrorResult error = ErrorResult.fail(ResultCode.SYSTEM_ERROR, e);
+        log.error("URL:{} ,系统异常: ", request.getRequestURI(), e);
         return error;
     }
 
@@ -72,7 +72,7 @@ public class GlobalExceptionHandler {
                 .message(e.getMessage())
                 .exception(e.getClass().getName())
                 .build();
-        log.warn("URL:{} ,业务异常:{}", request.getRequestURI(),error);
+        log.warn("URL:{} ,业务异常:{}", request.getRequestURI(), error);
         return error;
     }
 
@@ -83,8 +83,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ErrorResult handleMethodArgumentNotValidException(MethodArgumentNotValidException e, HttpServletRequest request) {
         String msgs = this.handle(e.getBindingResult().getFieldErrors());
-        ErrorResult error = ErrorResult.fail(ResultCode.PARAM_IS_INVALID, e,  msgs);
-        log.warn("URL:{} ,参数校验异常:{}", request.getRequestURI(),msgs);
+        ErrorResult error = ErrorResult.fail(ResultCode.PARAM_IS_INVALID, e, msgs);
+        log.warn("URL:{} ,参数校验异常:{}", request.getRequestURI(), msgs);
         return error;
     }
 
@@ -97,7 +97,7 @@ public class GlobalExceptionHandler {
                 .message(e.getMessage())
                 .exception(e.getClass().getName())
                 .build();
-        log.warn("URL:{} ,业务校验异常:{}", request.getRequestURI(),e);
+        log.warn("URL:{} ,业务校验异常:{}", request.getRequestURI(), e);
         return error;
     }
 
@@ -114,40 +114,43 @@ public class GlobalExceptionHandler {
 
     /**
      * 数据库主键冲突
+     *
      * @param e
      * @return
      */
     @ExceptionHandler(DuplicateKeyException.class)
     public ErrorResult duplicateKeyException(DuplicateKeyException e, HttpServletRequest request) {
         String msgs = e.getMessage();
-        ErrorResult error = ErrorResult.fail(ResultCode.DB_DUPLICATEKEY, e,  e.getMessage());
-        log.warn("URL:{} ,参数校验异常:{}", request.getRequestURI(),msgs);
+        ErrorResult error = ErrorResult.fail(ResultCode.DB_DUPLICATEKEY, e, e.getMessage());
+        log.warn("URL:{} ,参数校验异常:{}", request.getRequestURI(), msgs);
         return error;
     }
 
     /**
      * 捕获Aes加密时，如果获取到的加密字符串错误时，无法解密的异常
+     *
      * @param e
      * @return
      */
     @ExceptionHandler(BadPaddingException.class)
     public ErrorResult badPaddingException(BadPaddingException e, HttpServletRequest request) {
         String msgs = e.getMessage();
-        ErrorResult error = ErrorResult.fail(ResultCode.ENCRYPTION_ERROR, e,  e.getMessage());
-        log.warn("URL:{} ,参数校验异常:{}", request.getRequestURI(),msgs);
+        ErrorResult error = ErrorResult.fail(ResultCode.ENCRYPTION_ERROR, e, e.getMessage());
+        log.warn("URL:{} ,参数校验异常:{}", request.getRequestURI(), msgs);
         return error;
     }
 
     /**
      * JWT解码异常
+     *
      * @param e
      * @return
      */
     @ExceptionHandler(value = JWTDecodeException.class)
     public ErrorResult handleJWTDecodeException(JWTDecodeException e, HttpServletRequest request) {
         String msgs = e.getMessage();
-        ErrorResult error = ErrorResult.fail(ResultCode.TOKEN_FORMAT_ERROR, e,  e.getMessage());
-        log.warn("URL:{} ,参数校验异常:{}", request.getRequestURI(),msgs);
+        ErrorResult error = ErrorResult.fail(ResultCode.TOKEN_FORMAT_ERROR, e, e.getMessage());
+        log.warn("URL:{} ,参数校验异常:{}", request.getRequestURI(), msgs);
         return error;
     }
 

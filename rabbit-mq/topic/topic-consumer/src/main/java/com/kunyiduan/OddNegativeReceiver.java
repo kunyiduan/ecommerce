@@ -20,7 +20,7 @@ public class OddNegativeReceiver {
 
     @RabbitHandler
     public void process(Integer msg) {
-        log.info("OddNegativeReceiver ---- "+ msg);
+        log.info("OddNegativeReceiver ---- " + msg);
     }
 
 }

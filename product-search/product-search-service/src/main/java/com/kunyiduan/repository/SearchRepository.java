@@ -14,7 +14,7 @@ import java.util.List;
  * @createTime 2020/09/10 10:15:00
  */
 @Component
-public interface SearchRepository extends ElasticsearchRepository<SearchRepository,Long> {
+public interface SearchRepository extends ElasticsearchRepository<SearchRepository, Long> {
 
     List<SearchVO> listProductByName(SearchParam searchParam);
 

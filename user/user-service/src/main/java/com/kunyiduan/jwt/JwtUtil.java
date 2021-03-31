@@ -120,6 +120,10 @@ public class JwtUtil {
         }
     }
 
+    public long getExpired() {
+        return expired;
+    }
+
     /**
      * 通过token获取version
      *

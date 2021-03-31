@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-@FeignClient(name = "USER",fallbackFactory = UserFeignFallback.class)
+@FeignClient(name = "USER", fallbackFactory = UserFeignFallback.class)
 @ResponseBody
 @Api("用户对外API")
 public interface UserFeignClient {
@@ -22,8 +22,8 @@ public interface UserFeignClient {
     @ApiOperation("通过token获取用户信息")
     @GetMapping("/user/token")
     @HystrixCommand(commandProperties = {
-            @HystrixProperty(name= HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value="SEMAPHORE"),// 信号量 隔离
-            @HystrixProperty(name=HystrixPropertiesManager.EXECUTION_ISOLATION_SEMAPHORE_MAX_CONCURRENT_REQUESTS, value="100")//信号量最大并发度
+            @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_STRATEGY, value = "SEMAPHORE"),// 信号量 隔离
+            @HystrixProperty(name = HystrixPropertiesManager.EXECUTION_ISOLATION_SEMAPHORE_MAX_CONCURRENT_REQUESTS, value = "100")//信号量最大并发度
     })
     UserInfoVO getUserInfoByToken(@RequestHeader("token") String token);
 

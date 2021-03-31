@@ -43,13 +43,13 @@ public class SsoInterceptor implements HandlerInterceptor {
         String token = httpServletRequest.getHeader("token");
         if (!StringUtils.isEmpty(token)) {
             String telephone = ssoInterceptor.jwtUtil.getTelephone(token);
-            if(ssoInterceptor.redisUtil.hasKey(ConstantUtil.TOKEN_VERSION.concat(telephone))){
+            if (ssoInterceptor.redisUtil.hasKey(ConstantUtil.TOKEN_VERSION.concat(telephone))) {
                 String currentVersion = ssoInterceptor.jwtUtil.getVersion(token);
                 String savaVersion = ssoInterceptor.redisUtil.get(ConstantUtil.TOKEN_VERSION.concat(telephone)).toString();
                 if (!currentVersion.equals(savaVersion)) {
                     throw new BusinessException(ResultCode.USER_LOGIN_ERROR);
                 }
-            }else {
+            } else {
                 throw new BusinessException(ResultCode.USER_LOGIN_ERROR);
             }
         }

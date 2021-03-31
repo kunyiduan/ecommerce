@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @RequestMapping("/user")
-@Api(description = "用户",tags = {"user"})
+@Api(description = "用户", tags = {"user"})
 public class UserController {
 
     @Autowired
@@ -33,38 +33,40 @@ public class UserController {
 
     /**
      * 密码使用AES加密
+     *
      * @param registerParam
      * @return
      */
     @ApiOperation("注册")
     @PostMapping("/register")
-    public Boolean register(@RequestBody @Validated RegisterParam registerParam){
+    public Boolean register(@RequestBody @Validated RegisterParam registerParam) {
         Boolean flag = userService.register(registerParam);
         return flag;
     }
 
     /**
      * 登录成功返回token
+     *
      * @param loginPhoneParam
      * @return
      */
     @ApiOperation("登录")
     @PostMapping("/login")
-    public String login(@RequestBody @Validated LoginPhoneParam loginPhoneParam){
+    public String login(@RequestBody @Validated LoginPhoneParam loginPhoneParam) {
         String token = userService.login(loginPhoneParam);
         return token;
     }
 
     @ApiOperation("通过token获取用户信息")
     @GetMapping("/token")
-    public UserInfoVO getUserInfoByToken(@RequestHeader("token") String token){
+    public UserInfoVO getUserInfoByToken(@RequestHeader("token") String token) {
         UserInfoVO userInfo = userService.getUserInfoByToken(token);
         return userInfo;
     }
 
     @ApiOperation("修改密码")
     @PostMapping("/password")
-    public void modifyPassword(@RequestHeader("token") String token, @RequestBody @Validated PasswordParam passwordParam){
+    public void modifyPassword(@RequestHeader("token") String token, @RequestBody @Validated PasswordParam passwordParam) {
         String telephone = jwtUtil.getTelephone(token);
         userService.modifyPassword(telephone, passwordParam.getCurrentPassword(), passwordParam.getNewPassword());
     }

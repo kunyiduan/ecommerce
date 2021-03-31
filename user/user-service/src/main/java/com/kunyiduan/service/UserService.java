@@ -23,7 +23,7 @@ public interface UserService extends IService<User> {
 
     UserInfoVO getUserInfoByToken(String token);
 
-    void modifyPassword(String telephone,String currentPassword,String newPassword);
+    void modifyPassword(String telephone, String currentPassword, String newPassword);
 
     void logout(String token);
 
