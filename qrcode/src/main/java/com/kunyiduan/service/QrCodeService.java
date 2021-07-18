@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class QrCodeService {
 
-    public String createQrCode(){
+    public String createQrCode() {
         return QrCodeUtil.generateAsBase64("duankunyi", new QrConfig(), ImgUtil.IMAGE_TYPE_PNG);
     }
 

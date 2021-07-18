@@ -30,7 +30,7 @@ public class PointsServiceImpl extends ServiceImpl<PointsMapper, Points> impleme
 
     @Override
     //@Async默认使用newSingleThreadExecutor，无法重用线程，故通常自定义线程池
-    @Async("pointsPool")
+//    @Async("pointsPool")
     public Boolean create(PointsParam pointsParam) {
         Points points = new Points();
         BeanUtils.copyProperties(pointsParam, points);

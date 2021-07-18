@@ -19,6 +19,7 @@ import com.kunyiduan.service.UserService;
 import com.kunyiduan.util.AESUtil;
 import com.kunyiduan.util.EncryptUtil;
 import com.kunyiduan.utils.ConstantUtil;
+import io.seata.spring.annotation.GlobalTransactional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,7 +69,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private int useRedisExpiredTime;
 
     @Override
-    @Transactional(rollbackFor = RuntimeException.class)
+//    @Transactional(rollbackFor = RuntimeException.class)
+    @GlobalTransactional(timeoutMills = 300000, name = "dubbo-gts-seata-example")
     public boolean register(RegisterParam registerParam) {
         User user = new User();
         BeanUtils.copyProperties(registerParam, user);

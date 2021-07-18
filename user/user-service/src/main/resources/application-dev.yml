@@ -1,11 +1,17 @@
 spring:
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    alibaba:
+      seata:
+        tx-service-group: my_test_tx_group
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost/user?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
     username: root
     password: '123456'
   redis:
-    host: 192.168.0.106
+    host: 127.0.0.1
     port: 6379
     database: 1
     timeout: 2000

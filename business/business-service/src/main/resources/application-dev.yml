@@ -1,0 +1,50 @@
+spring:
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost/user?characterEncoding=utf8&useUnicode=true&useSSL=false&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: '123456'
+  security:
+    basic:
+      enabled: true
+    user:
+      name: root
+      password: 123456
+
+swagger:
+  enabled: true
+
+logging:
+  level:
+    root: info
+
+mybatis-plus:
+  configuration:
+    # 打印执行的sql，开发或测试环境使用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+sharding:
+  jdbc:
+    datasource:
+      names: master,salve0 #主从数据源
+      master:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver #数据库新的驱动，下面连接url一定要加区时
+        url: jdbc:mysql://localhost:3306/master?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true
+        username: root
+        password: 123456
+      salve0:
+        type: com.alibaba.druid.pool.DruidDataSource
+        driver-class-name: com.mysql.cj.jdbc.Driver
+        url: jdbc:mysql://localhost:3306/salve0?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&allowMultiQueries=true
+        username: root
+        password: 123456
+    config:  #读写分离配置
+      masterslave:
+        master-data-source-name: master #主数据库配置
+        slave-data-source-names: salve0 #从数据库配置（多个以逗号隔开）
+        load-balance-algorithm-type: round_robin # 提供轮询与随机(random)，这里选择用轮询，
+        name: ms
+      props:
+        sql:
+          show: true #打印sql日志

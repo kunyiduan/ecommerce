@@ -11,7 +11,7 @@
     <artifactId>product-api</artifactId>
     <name>product-api</name>
     <version>0.0.1-SNAPSHOT</version>
-    <packaging>jar</packaging>
+<!--    <packaging>jar</packaging>-->
 
     <dependencies>
         <dependency>

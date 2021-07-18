@@ -15,8 +15,8 @@ public class TestController {
     private RedisTemplate redisTemplate;
 
     @GetMapping("/create")
-    public Result create(@RequestParam("code") String code){
-        redisTemplate.opsForValue().set("test:"+code,"1", 66 ,TimeUnit.SECONDS);
+    public Result create(@RequestParam("code") String code) {
+        redisTemplate.opsForValue().set("test:" + code, "1", 66, TimeUnit.SECONDS);
         return Result.suc();
     }
 

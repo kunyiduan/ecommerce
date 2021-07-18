@@ -2,6 +2,7 @@ package com.kunyiduan.mapper;
 
 import com.kunyiduan.entity.Points;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author achilles
  * @since 2020-07-13
  */
+@Mapper
 public interface PointsMapper extends BaseMapper<Points> {
 
 }

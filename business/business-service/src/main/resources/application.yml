@@ -1,0 +1,25 @@
+server:
+  #端口号
+  port: 8067
+
+spring:
+  profiles:
+    active: dev
+  application:
+    name: business
+  jackson:
+    time-zone: GMT+8
+
+mybatis-plus:
+  default-executor-type: REUSE
+  configuration:
+    map-underscore-to-camel-case: true
+    cache-enabled: false
+    call-setters-on-nulls: true
+  global-config:
+    db-config:
+      table-underline: true
+      id-type: ID_WORKER_STR
+      db-type: mysql
+  instance:
+    preferIpAddress: true

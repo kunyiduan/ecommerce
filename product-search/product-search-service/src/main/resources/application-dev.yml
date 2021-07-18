@@ -15,10 +15,10 @@ spring:
     user:
       name: root
       password: 123456
-#  data:
-#    elasticsearch:
-#      repositories:
-#        enabled: true
+  #  data:
+  #    elasticsearch:
+  #      repositories:
+  #        enabled: true
 
   cluster
 swagger:

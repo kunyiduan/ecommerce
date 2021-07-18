@@ -1,6 +1,6 @@
 package com.kunyiduan.enums;
 
-public enum  ResultCode {
+public enum ResultCode {
 
     /* 成功状态码 */
     SUCCESS("A200", "成功");

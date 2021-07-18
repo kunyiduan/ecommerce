@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Main {
     String str = new String("good");
-    char[] ch = {'a','b','c'};
+    char[] ch = {'a', 'b', 'c'};
 
     public static void main(String[] args) throws NoSuchFieldException, IllegalAccessException {
 //        Main main = new Main();
@@ -36,8 +36,8 @@ public class Main {
         System.out.println(LocalDate.now().format(formatter));
     }
 
-    public void change(String str,char[] ch){
+    public void change(String str, char[] ch) {
         str = "test ok";
-        ch[0]= 'g';
+        ch[0] = 'g';
     }
 }

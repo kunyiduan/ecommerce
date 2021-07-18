@@ -11,7 +11,7 @@ public class MyJob implements Job {
 
     @Override
     public void execute(JobExecutionContext jobExecutionContext) throws JobExecutionException {
-        log.info("-------------"+jobExecutionContext.getJobDetail().getKey());
+        log.info("-------------" + jobExecutionContext.getJobDetail().getKey());
     }
 
 }
